@@ -122,6 +122,12 @@ main{padding:56px 0 100px}
  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
  html{scroll-behavior:auto}
 }
+
+.idea-card details summary{list-style:none}
+.idea-card details summary::-webkit-details-marker{display:none}
+.idea-card details summary:after{content:"+ ";float:right;font-size:18px}
+.idea-card details[open] summary:after{content:"–"}
+.idea-card .idea-copy{line-height:1.55}
 </style>
 </head>
 <body>
@@ -223,167 +229,117 @@ main{padding:56px 0 100px}
  </div>
 </footer>
 
-<script src="ideas.js"></script>
+<script>
+      window.ideaData = [];
+      window.ideaDataReady = false;
+    </script>
+    <script
+      src="ideas.js"
+      onload="window.ideaDataReady=true; console.log('Launch House idea database loaded:', window.ideaData.length)"
+      onerror="console.error('Launch House idea database failed to load.')">
+    </script>
 <script>
 const CONFIG = {
   databaseUrl: "https://docs.google.com/spreadsheets/d/REPLACE_WITH_YOUR_VIEW_ONLY_SHEET_ID/edit?usp=sharing"
 };
 
 const QUESTIONS = [
-  {
-    id:"role", group:1,
-    title:"What best describes you right now?",
-    help:"Your current work matters because some ideas become much easier when you already know the market.",
-    options:[
-      {v:"student",t:"Student",s:"I am studying or just starting out."},
-      {v:"employee",t:"Working in a company",s:"I have a job and want to build on the side."},
-      {v:"founder",t:"I already run a business",s:"I know what it is like to sell or operate."},
-      {v:"freelancer",t:"Freelancer / consultant",s:"I already sell a skill or service."},
-      {v:"developer",t:"Developer / technical",s:"I can build software myself."},
-      {v:"other",t:"Something else",s:"My path is different."}
-    ]
-  },
-  {
-    id:"skill", group:1,
-    title:"What are you best at?",
-    help:"Choose the skill you would be most comfortable using every week.",
-    options:[
-      {v:"sales",t:"Selling",s:"Talking to people and closing deals."},
-      {v:"marketing",t:"Marketing",s:"Content, ads, growth or brand."},
-      {v:"coding",t:"Building",s:"Code, products or technical work."},
-      {v:"content",t:"Content",s:"Writing, video, social or media."},
-      {v:"operations",t:"Operations",s:"Making people and processes work."},
-      {v:"analysis",t:"Analysis",s:"Research, numbers and problem solving."},
-      {v:"networking",t:"People / community",s:"Networking, communities and relationships."}
-    ]
-  },
-  {
-    id:"knowledge", group:1,
-    title:"Which area do you understand best?",
-    help:"Pick the area where you already know how the people, work and problems look.",
-    options:[
-      {v:"technology",t:"Technology / software"},
-      {v:"finance",t:"Finance / accounting"},
-      {v:"health",t:"Health / wellness"},
-      {v:"education",t:"Education / careers"},
-      {v:"real estate",t:"Real estate / property"},
-      {v:"sales",t:"Sales / marketing"},
-      {v:"recruiting",t:"HR / recruiting"},
-      {v:"ecommerce",t:"Ecommerce / retail"},
-      {v:"manufacturing",t:"Manufacturing / industry"},
-      {v:"none",t:"No strong area yet",s:"I am open to learning."}
-    ]
-  },
-  {
-    id:"customerAccess", group:2,
-    title:"Who can you reach more easily?",
-    help:"Customer access can matter more than a clever idea.",
-    options:[
-      {v:"consumers",t:"Everyday consumers"},
-      {v:"SMBs",t:"Small businesses"},
-      {v:"startups",t:"Startups / founders"},
-      {v:"enterprise",t:"Large companies"},
-      {v:"professional",t:"Professionals",s:"Doctors, lawyers, recruiters, accountants, etc."},
-      {v:"technical",t:"Developers / technical teams"},
-      {v:"education",t:"Students / teachers"},
-      {v:"none",t:"I don't have access yet"}
-    ]
-  },
-  {
-    id:"budget", group:2,
-    title:"How much can you invest to start?",
-    help:"Think about the amount you can comfortably risk without putting pressure on yourself.",
-    options:[
-      {v:"low",t:"₹0–₹10,000"},
-      {v:"low-medium",t:"₹10,000–₹50,000"},
-      {v:"medium",t:"₹50,000–₹2 lakh"},
-      {v:"high",t:"₹2 lakh+"}
-    ]
-  },
-  {
-    id:"time", group:2,
-    title:"How much time can you give this each day?",
-    help:"Your first business should fit your real life, not your ideal life.",
-    options:[
-      {v:"low",t:"Less than 1 hour"},
-      {v:"medium",t:"1–2 hours"},
-      {v:"high",t:"2–4 hours"},
-      {v:"full",t:"Full time"}
-    ]
-  },
-  {
-    id:"tech", group:2,
-    title:"How comfortable are you with technology?",
-    help:"You can build with AI without being a developer. We still use this to avoid bad matches.",
-    options:[
-      {v:"none",t:"Not technical",s:"I want no-code / AI-assisted ideas."},
-      {v:"ai-assisted",t:"Comfortable with AI tools",s:"I can follow technical instructions."},
-      {v:"moderate",t:"Some coding experience"},
-      {v:"technical",t:"I am a strong developer"}
-    ]
-  },
-  {
-    id:"model", group:3,
-    title:"What kind of business sounds best to you?",
-    help:"Pick the model you would be happiest to work on.",
-    options:[
-      {v:"SaaS",t:"Software / SaaS",s:"Recurring revenue from a product."},
-      {v:"Marketplace / Transaction",t:"Marketplace",s:"Connect buyers and sellers."},
-      {v:"App / Platform",t:"Consumer app / platform"},
-      {v:"API / Developer",t:"Developer tool / API"},
-      {v:"service",t:"Service + software",s:"Start with service, then automate."},
-      {v:"any",t:"I am open"}
-    ]
-  },
-  {
-    id:"goal", group:3,
-    title:"What do you want from your startup?",
-    help:"Your goal changes which ideas make sense.",
-    options:[
-      {v:"income",t:"Make my first ₹1 lakh"},
-      {v:"salary",t:"Replace my salary"},
-      {v:"scale",t:"Build a big company"},
-      {v:"learning",t:"Learn by building"},
-      {v:"freedom",t:"Build a business around my life"},
-      {v:"impact",t:"Solve a problem I care about"}
-    ]
-  },
-  {
-    id:"selling", group:3,
-    title:"How do you feel about selling?",
-    help:"Be honest. Your answer will affect which customer models we recommend.",
-    options:[
-      {v:"love",t:"I enjoy selling"},
-      {v:"okay",t:"I can do it"},
-      {v:"prefer-not",t:"I would rather not"},
-      {v:"no",t:"I really don't want to sell"}
-    ]
-  },
-  {
-    id:"risk", group:3,
-    title:"What matters most when you choose a startup?",
-    help:"There is no right answer. Pick your biggest priority.",
-    options:[
-      {v:"cheap",t:"Start cheaply"},
-      {v:"fast",t:"Launch fast"},
-      {v:"market",t:"Large market"},
-      {v:"defensible",t:"Build something hard to copy"},
-      {v:"fit",t:"Fit my skills and life"},
-      {v:"fun",t:"Work on something I enjoy"}
-    ]
-  },
-  {
-    id:"access", group:3,
-    title:"Do you already know potential customers?",
-    help:"Even a small group of reachable customers can be a huge advantage.",
-    options:[
-      {v:"work",t:"Yes — through my work"},
-      {v:"network",t:"Yes — through my network"},
-      {v:"audience",t:"Yes — through social media / community"},
-      {v:"no",t:"No — I will need to find them"}
-    ]
-  }
-];
+  {id:"role",group:1,title:"What best describes you right now?",help:"Your current work can give you an unfair advantage.",options:[
+    {v:"student",t:"Student",s:"I am studying or just starting out."},
+    {v:"employee",t:"Working in a company",s:"I have a job and want to build on the side."},
+    {v:"founder",t:"I already run a business",s:"I already sell or operate something."},
+    {v:"freelancer",t:"Freelancer / consultant",s:"I already sell a skill or service."},
+    {v:"developer",t:"Developer / technical",s:"I can build software myself."},
+    {v:"other",t:"Something else"}
+  ]},
+  {id:"skill",group:1,title:"What would you most like to use as your unfair advantage?",help:"Pick the skill you can use every week without forcing yourself.",options:[
+    {v:"sales",t:"Selling",s:"Talking to people and closing deals."},
+    {v:"marketing",t:"Marketing",s:"Content, ads, growth or brand."},
+    {v:"coding",t:"Building",s:"Code, products or technical work."},
+    {v:"content",t:"Content",s:"Writing, video, social or media."},
+    {v:"operations",t:"Operations",s:"Making people and processes work."},
+    {v:"analysis",t:"Analysis",s:"Research, numbers and problem solving."},
+    {v:"networking",t:"People / community",s:"Relationships, communities and partnerships."}
+  ]},
+  {id:"knowledge",group:1,title:"Which market do you understand best?",help:"Choose the place where you already know the people and problems.",options:[
+    {v:"technology",t:"Technology / software"},
+    {v:"finance",t:"Finance / accounting"},
+    {v:"health",t:"Health / wellness"},
+    {v:"education",t:"Education / careers"},
+    {v:"real estate",t:"Real estate / property"},
+    {v:"sales",t:"Sales / marketing"},
+    {v:"recruiting",t:"HR / recruiting"},
+    {v:"ecommerce",t:"Ecommerce / retail"},
+    {v:"manufacturing",t:"Manufacturing / industry"},
+    {v:"none",t:"I don't have a strong market yet",s:"I am open to learning."}
+  ]},
+  {id:"customerAccess",group:2,title:"Who can you reach today?",help:"A startup is easier when your first customers are already within reach.",options:[
+    {v:"consumers",t:"Everyday consumers"},
+    {v:"SMBs",t:"Small businesses"},
+    {v:"startups",t:"Startups / founders"},
+    {v:"enterprise",t:"Large companies"},
+    {v:"professional",t:"Professionals",s:"Doctors, lawyers, recruiters, accountants, etc."},
+    {v:"technical",t:"Developers / technical teams"},
+    {v:"education",t:"Students / teachers"},
+    {v:"none",t:"I don't have access yet"}
+  ]},
+  {id:"distribution",group:2,title:"What distribution do you already have?",help:"Pick the strongest channel you already control, even if it is small.",options:[
+    {v:"network",t:"A strong personal network"},
+    {v:"audience",t:"Social media / audience"},
+    {v:"community",t:"A community / group"},
+    {v:"work",t:"Access through my job or business"},
+    {v:"partners",t:"Partners who can introduce customers"},
+    {v:"none",t:"I have no distribution yet"}
+  ]},
+  {id:"budget",group:2,title:"How much can you invest to start?",help:"Use the amount you can comfortably risk.",options:[
+    {v:"low",t:"₹0–₹10,000"},
+    {v:"low-medium",t:"₹10,000–₹50,000"},
+    {v:"medium",t:"₹50,000–₹2 lakh"},
+    {v:"high",t:"₹2 lakh+"}
+  ]},
+  {id:"time",group:2,title:"How much time can you give this each day?",help:"Your startup should fit your real schedule.",options:[
+    {v:"low",t:"Less than 1 hour"},
+    {v:"medium",t:"1–2 hours"},
+    {v:"high",t:"2–4 hours"},
+    {v:"full",t:"Full time"}
+  ]},
+  {id:"tech",group:2,title:"How technical are you?",help:"This helps us avoid giving a beginner a build that needs a full engineering team.",options:[
+    {v:"none",t:"Not technical",s:"I want no-code / AI-assisted ideas."},
+    {v:"ai-assisted",t:"Comfortable with AI tools",s:"I can follow technical instructions."},
+    {v:"moderate",t:"Some coding experience"},
+    {v:"technical",t:"Strong developer"}
+  ]},
+  {id:"model",group:3,title:"Which business model sounds best?",help:"Choose the type of business you would enjoy working on.",options:[
+    {v:"SaaS",t:"Software / SaaS",s:"Recurring revenue from a product."},
+    {v:"Marketplace / Transaction",t:"Marketplace",s:"Connect buyers and sellers."},
+    {v:"App / Platform",t:"Consumer app / platform"},
+    {v:"API / Developer",t:"Developer tool / API"},
+    {v:"service",t:"Service → software",s:"Start with a service, then automate."},
+    {v:"any",t:"I am open"}
+  ]},
+  {id:"goal",group:3,title:"What do you want from your startup?",help:"This changes which opportunities should rise to the top.",options:[
+    {v:"income",t:"Make my first ₹1 lakh"},
+    {v:"salary",t:"Replace my salary"},
+    {v:"scale",t:"Build a large company"},
+    {v:"learning",t:"Learn by building"},
+    {v:"freedom",t:"Build a business around my life"},
+    {v:"impact",t:"Solve a problem I care about"}
+  ]},
+  {id:"selling",group:3,title:"How do you feel about selling?",help:"Be honest. Selling is central to some business models.",options:[
+    {v:"love",t:"I enjoy selling"},
+    {v:"okay",t:"I can do it"},
+    {v:"prefer-not",t:"I would rather not"},
+    {v:"no",t:"I really don't want to sell"}
+  ]},
+  {id:"risk",group:3,title:"What matters most when you choose a startup?",help:"Pick the one thing you care about most.",options:[
+    {v:"cheap",t:"Start cheaply"},
+    {v:"fast",t:"Launch fast"},
+    {v:"market",t:"Large market"},
+    {v:"defensible",t:"Build something hard to copy"},
+    {v:"fit",t:"Fit my skills and life"},
+    {v:"fun",t:"Work on something I enjoy"}
+  ]}
+]
 
 const state = { index:0, answers:{} };
 
@@ -419,170 +375,243 @@ function renderQuestion(){
   });
 }
 
-function normalizeCapital(band){return band==="low"?"low":band==="low-medium"?"low-medium":band==="medium"?"medium":"high"}
-function scoreIdea(idea){
-  const a=state.answers;
-  let skills=0, industry=0, access=0, capital=0, build=0;
-  let base=55;
+function clamp(n,a,b){return Math.max(a,Math.min(b,n))}
+function same(x,y){return String(x||"").trim().toLowerCase()===String(y||"").trim().toLowerCase()}
 
-  const skill=String(a.skill||"");
-  const know=String(a.knowledge||"");
-  const customer=String(a.customerAccess||"");
-  const tech=String(a.tech||"");
-  const budget=String(a.budget||"");
-  const time=String(a.time||"");
-  const model=String(a.model||"");
-  const selling=String(a.selling||"");
-  const goal=String(a.goal||"");
-  const accessQ=String(a.access||"");
-  const tags=idea.tags||{skills:[],industries:[],customerGroups:[],businessModels:[]};
+function founderFit(idea){
+  const a=state.answers,t=idea.tags||{};
+  let skills=35,industry=35,access=25,capital=35,build=45;
 
-  // Skills fit
-  if(tags.skills?.some(s=>s.toLowerCase()===skill.toLowerCase())) skills+=1;
-  if(skill==="sales" && (idea.category==="Marketing & Sales"||idea.workflow.includes("lead")||idea.workflow.includes("follow"))) skills+=.9;
-  if(skill==="coding" && ["technical","ai-assisted / moderate"].includes(idea.tags.technicalLevel)) skills+=1;
-  if(skill==="marketing" && idea.category==="Marketing & Sales") skills+=1;
-  if(skill==="content" && idea.category==="Creator Economy & Media") skills+=1;
-  if(skill==="operations" && ["Logistics & Mobility","Vertical SaaS & Local SMB","Manufacturing & Industry","Real Estate & Construction"].includes(idea.category)) skills+=1;
-  if(skill==="analysis" && ["Fintech & Accounting","Cybersecurity & Privacy","Developer Tools","Health & Wellness"].includes(idea.category)) skills+=.8;
-  skills=clamp(Math.round(skills*50),0,100);
+  if(a.skill){
+    if(t.skills?.some(s=>same(s,a.skill))) skills=100;
+    else if(a.skill==="sales" && /lead|sales|follow|customer|revenue/i.test(idea.workflow+" "+idea.category)) skills=90;
+    else if(a.skill==="coding" && /developer|api|cloud|code/i.test(idea.productType+" "+idea.category)) skills=95;
+    else if(a.skill==="marketing" && /marketing|creator|media|ecommerce/i.test(idea.category)) skills=88;
+    else if(a.skill==="content" && /creator|media|content/i.test(idea.category)) skills=95;
+    else if(a.skill==="operations" && /operations|logistics|manufacturing|local|real estate/i.test(idea.category)) skills=88;
+    else if(a.skill==="analysis" && /finance|developer|security|health/i.test(idea.category)) skills=82;
+    else if(a.skill==="networking" && /community|marketplace|creator/i.test(idea.category)) skills=90;
+    else skills=45;
+  }
 
-  // Industry fit
-  if(know!=="none" && tags.industries?.map(x=>x.toLowerCase()).includes(know.toLowerCase())) industry=100;
-  else if(know!=="none" && idea.category.toLowerCase().includes(know.toLowerCase())) industry=85;
-  else industry=35;
-  if(know==="none") industry=55;
+  if(a.knowledge && a.knowledge!=="none"){
+    if(t.industries?.some(x=>same(x,a.knowledge))) industry=100;
+    else if(idea.category.toLowerCase().includes(a.knowledge.toLowerCase())) industry=92;
+    else industry=35;
+  } else industry=55;
 
-  // Customer access
-  const group=tags.customerGroups||[];
-  if(customer!=="none" && group.map(x=>x.toLowerCase()).includes(customer.toLowerCase())) access=100;
-  else if(customer==="SMBs" && /SMB|small businesses|local/i.test(idea.targetCustomer||"")) access=100;
-  else if(customer==="professional" && /recruit|clinic|law|finance|account/i.test(idea.targetCustomer||"")) access=95;
-  else if(customer==="technical" && /developer|technical|data|security|product/i.test(idea.targetCustomer||"")) access=95;
-  else if(customer==="enterprise" && /enterprise/i.test(idea.targetCustomer||"")) access=100;
-  else access=30;
-  if(accessQ==="no") access=Math.min(access,65);
-  if(accessQ!=="no" && (accessQ==="work"||accessQ==="network"||accessQ==="audience")) access=Math.min(100,access+10);
+  const cg=t.customerGroups||[];
+  if(a.customerAccess && a.customerAccess!=="none"){
+    if(cg.some(x=>same(x,a.customerAccess))) access=100;
+    else if(a.customerAccess==="SMBs" && /SMB|small businesses|local/i.test(idea.targetCustomer)) access=96;
+    else if(a.customerAccess==="professional" && /recruit|clinic|law|finance|account|property/i.test(idea.targetCustomer)) access=95;
+    else if(a.customerAccess==="technical" && /developer|technical|data|security|product/i.test(idea.targetCustomer)) access=95;
+    else if(a.customerAccess==="enterprise" && /enterprise/i.test(idea.targetCustomer)) access=95;
+    else if(a.customerAccess==="consumers" && /consumer|students|young professionals|parents|travelers/i.test(idea.targetCustomer)) access=92;
+    else access=32;
+  }
 
-  // Capital fit
-  const bands={"low":["low"],"low-medium":["low","low-medium"],"medium":["low","low-medium","medium"],"high":["low","low-medium","medium","high"]};
-  const allowable=bands[budget]||["low","low-medium","medium","high"];
-  const ideaCap=normalizeCapital(idea.tags.capitalBand);
-  capital=allowable.includes(ideaCap)?100:ideaCap==="high"?20:50;
+  if(a.distribution==="none") access=Math.min(access,65);
+  if(a.distribution==="network") access=Math.min(100,access+10);
+  if(a.distribution==="audience" && /consumer|creator|education/i.test(idea.category)) access=Math.min(100,access+12);
+  if(a.distribution==="work" && access>=70) access=Math.min(100,access+12);
 
-  // Build fit
-  const tl=idea.tags.technicalLevel;
-  if(tech==="none") build=tl==="ai-assisted"?100:tl==="ai-assisted / moderate"?90:35;
-  else if(tech==="ai-assisted") build=tl==="technical"?55:90;
-  else if(tech==="moderate") build=tl==="technical"?80:100;
+  const bands={low:["low"],"low-medium":["low","low-medium"],medium:["low","low-medium","medium"],high:["low","low-medium","medium","high"]};
+  const allowed=bands[a.budget||"medium"]||bands.medium;
+  capital=allowed.includes(idea.tags.capitalBand)?100:(idea.tags.capitalBand==="high"?20:55);
+
+  if(a.tech==="none") build=idea.tags.technicalLevel==="ai-assisted"?100:idea.tags.technicalLevel==="ai-assisted / moderate"?88:30;
+  else if(a.tech==="ai-assisted") build=idea.tags.technicalLevel==="technical"?55:92;
+  else if(a.tech==="moderate") build=idea.tags.technicalLevel==="technical"?82:100;
   else build=100;
-  if(time==="low" && idea.timeToMvp==="slow") build=Math.min(build,35);
-  if(time==="medium" && idea.timeToMvp==="slow") build=Math.min(build,55);
 
-  // Preferences / soft signals
-  let prefs=0, prefCount=0;
-  if(model && model!=="any"){ prefCount++; prefs += idea.tags.businessModels?.some(x=>x.toLowerCase()===model.toLowerCase()) ? 100:30; }
-  if(selling){ prefCount++; prefs += (selling==="no" && /marketplace|consumer|app/i.test(idea.businessModel||""))?70:selling==="love"&&/sales|lead|market|customer/i.test((idea.category+" "+idea.workflow))?100:60; }
-  if(goal){ prefCount++; prefs += goal==="scale" ? idea.revenuePotential/5*100 : goal==="cheap" ? (idea.capital==="Low–Medium"?100:50) : idea.revenuePotential/5*70+30; }
-  if(a.risk){ prefCount++; prefs += a.risk==="cheap" ? (idea.capital==="Low–Medium"?100:50) : a.risk==="fast" ? idea.mvpSpeed/5*100 : a.risk==="market" ? idea.marketSignal/5*100 : a.risk==="defensible" ? idea.revenuePotential/5*90 : 75; }
-  if(prefCount) prefs/=prefCount;
+  if(a.time==="low" && idea.timeToMvp==="slow") build=Math.min(build,30);
+  if(a.time==="medium" && idea.timeToMvp==="slow") build=Math.min(build,55);
 
-  // Final score
-  base += skills*.18 + industry*.18 + access*.16 + capital*.12 + build*.14 + (idea.marketSignal/5*100)*.10 + (idea.revenuePotential/5*100)*.07 + (prefs||65)*.05;
-  // Strong penalty for obvious mismatch
-  if(tech==="none" && tl==="technical") base-=12;
-  if(budget==="low" && ideaCap==="high") base-=14;
-  if(time==="low" && idea.timeToMvp==="slow") base-=12;
-  base=clamp(Math.round(base),35,98);
+  return {skills,industry,access,capital,build};
+}
+
+function businessAttractiveness(idea){
+  const market=idea.marketSignal/5*100;
+  const revenue=idea.revenuePotential/5*100;
+  const india=idea.indiaFit/5*100;
+  const speed=idea.mvpSpeed/5*100;
+  return Math.round(market*.30+revenue*.30+india*.20+speed*.20);
+}
+
+function executionFit(idea){
+  const f=founderFit(idea),a=state.answers;
+  let x=f.capital*.30+f.build*.30+f.access*.25+f.skills*.15;
+  if(a.risk==="fast") x=x*.7+(idea.mvpSpeed/5*100)*.3;
+  if(a.risk==="cheap") x=x*.75+(idea.capital==="Low–Medium"?100:50)*.25;
+  return Math.round(clamp(x,0,100));
+}
+
+function scoreIdea(idea){
+  const f=founderFit(idea),b=businessAttractiveness(idea),e=executionFit(idea);
+  let final=f.skills*.16+f.industry*.14+f.access*.16+f.capital*.10+f.build*.12+b*.17+e*.15;
+  const a=state.answers;
+
+  if(a.model && a.model!=="any"){
+    const bm=(idea.businessModel+" "+idea.productType).toLowerCase();
+    if(a.model==="service" && /service/i.test(bm)) final+=5;
+    else if(bm.includes(a.model.toLowerCase())) final+=7;
+    else final-=5;
+  }
+  if(a.goal==="scale" && idea.revenuePotential>=4) final+=4;
+  if(a.goal==="income" && idea.capital==="Low–Medium" && idea.mvpSpeed>=4) final+=4;
+  if(a.selling==="no" && /marketplace|consumer app|app|community/i.test(idea.productType+" "+idea.businessModel)) final+=3;
+  if(a.selling==="love" && /sales|marketing|lead|revenue|customer/i.test(idea.workflow+" "+idea.category)) final+=4;
+
+  if(a.tech==="none" && idea.tags.technicalLevel==="technical") final-=15;
+  if(a.budget==="low" && idea.tags.capitalBand==="high") final-=18;
+  if(a.time==="low" && idea.timeToMvp==="slow") final-=18;
+  if(a.customerAccess==="none" && a.distribution==="none" && /enterprise/i.test(idea.targetCustomer)) final-=10;
 
   return {
-    score:base,
-    dimensions:{skills:Math.round(skills),industry:Math.round(industry),access:Math.round(access),capital:Math.round(capital),build:Math.round(build)}
+    final:Math.round(clamp(final,25,97)),
+    founder:f,
+    business:b,
+    execution:e
   };
 }
 
 function recommend(){
-  const scored=ideaData.map(idea=>{
-    const result=scoreIdea(idea);
-    return {...idea, matchScore:result.score, fit:result.dimensions};
-  });
-  // Diversity: avoid returning three near-identical concepts from same workflow.
-  scored.sort((a,b)=>b.matchScore-a.matchScore);
+  const scored=window.ideaData.map(idea=>{
+    const s=scoreIdea(idea);
+    return {...idea,matchScore:s.final,founderFit:s.founder,businessScore:s.business,executionScore:s.execution};
+  }).sort((a,b)=>b.matchScore-a.matchScore);
+
   const chosen=[];
-  const seenWorkflows=new Set();
-  for(const idea of scored){
-    const categoryKey=idea.category;
-    const workflowKey=`${idea.category}|${idea.workflow}`;
-    if(!seenWorkflows.has(categoryKey) && !seenWorkflows.has(workflowKey)){
-      chosen.push(idea);
-      seenWorkflows.add(categoryKey);
-      seenWorkflows.add(workflowKey);
+  const categories=new Set();
+
+  if(scored[0]){chosen.push(scored[0]);categories.add(scored[0].category)}
+
+  for(const idea of scored.slice(1)){
+    if(!categories.has(idea.category)){
+      chosen.push(idea);categories.add(idea.category);
+      if(chosen.length===3)break;
     }
-    if(chosen.length===3) break;
   }
+
   if(chosen.length<3){
     for(const idea of scored){
-      if(!chosen.some(x=>x.id===idea.id)){ chosen.push(idea); }
-      if(chosen.length===3) break;
+      if(!chosen.some(x=>x.id===idea.id)){chosen.push(idea)}
+      if(chosen.length===3)break;
     }
   }
-  // overall fit from chosen
-  const avg = chosen.reduce((s,x)=>s+x.matchScore,0)/chosen.length;
-  const dims=["skills","industry","access","capital","build"];
-  const dimAvg={};
-  dims.forEach(d=>dimAvg[d]=Math.round(chosen.reduce((s,x)=>s+x.fit[d],0)/chosen.length));
-  return {chosen,overall:Math.round(avg),dimAvg};
-}
 
-function showResults(){
-  const {chosen,overall,dimAvg}=recommend();
-  $("questionView").classList.add("hidden");
-  $("resultView").classList.remove("hidden");
-  $("progressFill").style.width="100%";
-  $("progressPct").textContent="100%";
-  $("progressLabel").textContent="Assessment complete";
-  $("overallScore").textContent=overall;
-  $("scoreRing").style.background=`conic-gradient(var(--lime) 0 ${overall}%,#e8e8e3 ${overall}% 100%)`;
-  const map=[["skills","fitSkills","fitSkillsVal"],["industry","fitIndustry","fitIndustryVal"],["access","fitAccess","fitAccessVal"],["capital","fitCapital","fitCapitalVal"],["build","fitBuild","fitBuildVal"]];
-  map.forEach(([k,id,val])=>{$(id).style.width=dimAvg[k]+"%";$(val).textContent=dimAvg[k]+"%";});
-  $("ideaResults").innerHTML=chosen.map((idea,i)=>`
-    <article class="idea-card">
-      <div class="idea-top">
-        <div style="display:flex;gap:12px;align-items:flex-start">
-          <div class="rank">${String(i+1).padStart(2,"0")}</div>
-          <div>
-            <h3>${escapeHtml(idea.name)}</h3>
-            <div class="idea-target">Best for: ${escapeHtml(idea.targetCustomer)} · ${escapeHtml(idea.productType)}</div>
-          </div>
-        </div>
-        <div class="score-pill">${idea.matchScore}% fit</div>
-      </div>
-      <div class="idea-copy">${escapeHtml(idea.problem)}</div>
-      <div class="idea-grid2">
-        <div class="idea-stat"><span>Start cost</span><strong>${escapeHtml(idea.capital)}</strong></div>
-        <div class="idea-stat"><span>Difficulty</span><strong>${escapeHtml(idea.difficulty)}</strong></div>
-        <div class="idea-stat"><span>MVP speed</span><strong>${idea.mvpSpeed}/5</strong></div>
-        <div class="idea-stat"><span>India fit</span><strong>${idea.indiaFit}/5</strong></div>
-      </div>
-      <div class="why">
-        <strong>Why this is a match</strong>
-        <p>${fitReason(idea)}</p>
-      </div>
-      <div class="idea-copy"><strong>MVP:</strong> ${escapeHtml(idea.mvp)}</div>
-    </article>
-  `).join("");
+  const dimAvg={};
+  ["skills","industry","access","capital","build"].forEach(k=>{
+    dimAvg[k]=Math.round(chosen.reduce((sum,x)=>sum+x.founderFit[k],0)/chosen.length);
+  });
+
+  return {
+    chosen,
+    overall:Math.round(chosen.reduce((sum,x)=>sum+x.matchScore,0)/chosen.length),
+    dimAvg
+  };
 }
 
 function fitReason(idea){
-  const a=state.answers; const bits=[];
-  if(a.skill && idea.tags.skills?.includes(a.skill)) bits.push(`your strength in ${a.skill}`);
-  if(a.knowledge && a.knowledge!=="none" && idea.tags.industries?.some(x=>x.toLowerCase()===a.knowledge.toLowerCase())) bits.push(`your knowledge of ${a.knowledge}`);
-  if(a.customerAccess && a.customerAccess!=="none" && idea.tags.customerGroups?.map(x=>x.toLowerCase()).includes(a.customerAccess.toLowerCase())) bits.push(`your access to ${a.customerAccess}`);
-  if(a.tech==="none" && idea.tags.technicalLevel==="ai-assisted") bits.push("a beginner-friendly build path");
+  const a=state.answers,bits=[];
+  if(a.skill && idea.tags.skills?.includes(a.skill)) bits.push(`your ${a.skill} strength`);
+  if(a.knowledge && a.knowledge!=="none" && idea.tags.industries?.some(x=>same(x,a.knowledge))) bits.push(`your ${a.knowledge} knowledge`);
+  if(a.customerAccess && a.customerAccess!=="none" && idea.customerAccessType===a.customerAccess) bits.push(`your access to this buyer`);
+  if(a.distribution && a.distribution!=="none") bits.push(`your existing distribution`);
+  if(a.tech==="none" && idea.tags.technicalLevel==="ai-assisted") bits.push("an AI-assisted build path");
   if(a.budget==="low" && idea.tags.capitalBand==="low") bits.push("your low starting budget");
   if(a.time==="medium" && idea.timeToMvp==="fast") bits.push("your 1–2 hour/day time limit");
-  if(bits.length===0) bits.push("a balanced mix of founder fit, MVP speed and market signals");
-  return "It matches "+bits.slice(0,3).join(", ")+".";
+  return bits.length
+    ? `It fits because of ${bits.slice(0,3).join(", ")}.`
+    : "It has the strongest balance of founder fit, business potential and execution fit from your answers.";
+}
+
+function showResults(){
+  try{
+    if(!Array.isArray(window.ideaData)||!window.ideaData.length) throw new Error("Idea data not loaded.");
+    const {chosen,overall,dimAvg}=recommend();
+    if(!chosen.length) throw new Error("No matches.");
+
+    $("questionView").classList.add("hidden");
+    $("resultView").classList.remove("hidden");
+    $("progressFill").style.width="100%";
+    $("progressPct").textContent="100%";
+    $("progressLabel").textContent="Assessment complete";
+    $("overallScore").textContent=overall;
+    $("scoreRing").style.background=`conic-gradient(var(--lime) 0 ${overall}%,#e8e8e3 ${overall}% 100%)`;
+
+    [["skills","fitSkills","fitSkillsVal"],["industry","fitIndustry","fitIndustryVal"],["access","fitAccess","fitAccessVal"],["capital","fitCapital","fitCapitalVal"],["build","fitBuild","fitBuildVal"]].forEach(([k,id,val])=>{
+      $(id).style.width=dimAvg[k]+"%";
+      $(val).textContent=dimAvg[k]+"%";
+    });
+
+    $("ideaResults").innerHTML=chosen.map((idea,i)=>`
+      <article class="idea-card">
+        <div class="idea-top">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div class="rank">${String(i+1).padStart(2,"0")}</div>
+            <div>
+              <div class="eyebrow" style="color:#788084;margin-bottom:7px">${i===0?"BEST FIT":i===1?"EASIER START":"ALTERNATIVE"}</div>
+              <h3>${escapeHtml(idea.name)}</h3>
+              <div class="idea-target">${escapeHtml(idea.productType)} · For ${escapeHtml(idea.buyer)}</div>
+            </div>
+          </div>
+          <div class="score-pill">${idea.matchScore}% fit</div>
+        </div>
+
+        <div class="idea-copy"><strong>What is it?</strong><br>${escapeHtml(idea.what)}</div>
+
+        <div class="idea-grid2">
+          <div class="idea-stat"><span>Who pays</span><strong>${escapeHtml(idea.buyer)}</strong></div>
+          <div class="idea-stat"><span>Business model</span><strong>${escapeHtml(idea.businessModel)}</strong></div>
+          <div class="idea-stat"><span>Start cost</span><strong>${escapeHtml(idea.startCostSimple)}</strong></div>
+          <div class="idea-stat"><span>MVP speed</span><strong>${idea.mvpSpeed}/5</strong></div>
+        </div>
+
+        <div class="why">
+          <strong>Why this is a match</strong>
+          <p>${escapeHtml(fitReason(idea))}</p>
+        </div>
+
+        <div class="idea-copy">
+          <strong>Who pays and why</strong><br>${escapeHtml(idea.howMoney)}
+        </div>
+
+        <div class="idea-copy">
+          <strong>How to get your first customers</strong><br>${escapeHtml(idea.firstCustomers)}
+        </div>
+
+        <div class="idea-copy">
+          <strong>What to build first</strong><br>${escapeHtml(idea.mvp)}
+        </div>
+
+        <details style="margin-top:16px">
+          <summary style="cursor:pointer;font-weight:800;font-size:13px">See business upside & risk</summary>
+          <div style="margin-top:10px;display:grid;gap:8px">
+            <div class="idea-copy"><strong>Business score:</strong> ${idea.businessScore}/100 · <strong>Execution fit:</strong> ${idea.executionScore}/100</div>
+            <div class="idea-copy"><strong>Why now:</strong> ${escapeHtml(idea.whyNow)}</div>
+            <div class="idea-copy"><strong>Main risk:</strong> ${escapeHtml(idea.risk)}</div>
+          </div>
+        </details>
+      </article>
+    `).join("");
+
+    setTimeout(()=>$("resultView").scrollIntoView({behavior:"smooth",block:"start"}),60);
+  }catch(error){
+    console.error("Assessment error:",error);
+    let box=$("assessmentError");
+    if(!box){
+      box=document.createElement("div");
+      box.id="assessmentError";
+      box.style.cssText="margin-top:18px;padding:14px 16px;border:1px solid #f0b7b7;background:#fff3f3;color:#8d2222;border-radius:14px;font-size:13px;line-height:1.5";
+      $("options").parentNode.insertBefore(box,$("actions"));
+    }
+    box.innerHTML="<strong>We couldn't calculate your matches.</strong><br>Please refresh and try again.";
+  }
+}
+function escapeAttr(s){
+  return String(s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
 
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
