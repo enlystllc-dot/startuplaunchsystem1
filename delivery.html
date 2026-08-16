@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d0f">
+  <meta name="description" content="Launch House — Startup Build Sprint delivery page.">
+  <title>Startup Build Sprint — Launch House</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#0b0d0f;
+      --ink-2:#121518;
+      --paper:#f7f6f1;
+      --card:#fff;
+      --line:rgba(11,13,15,.10);
+      --muted:#687075;
+      --muted-2:#92989c;
+      --lime:#c7ff41;
+      --lime-2:#aee83a;
+      --red:#ff2633;
+      --shadow:0 22px 70px rgba(11,13,15,.10);
+      --radius:24px;
+      --max:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;line-height:1.45;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .wrap{width:min(var(--max),calc(100% - 40px));margin:0 auto}
+    .display{font-family:"Space Grotesk",system-ui,sans-serif;letter-spacing:-.055em}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.10em;text-transform:uppercase;color:var(--muted)}
+    .eyebrow:before{content:"";width:7px;height:7px;border-radius:999px;background:var(--lime-2)}
+    .micro{font-size:12px;color:var(--muted)}
+
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:40;background:rgba(247,246,241,.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,13,15,.07)}
+    .nav-in{height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand-logo{width:178px;height:auto;display:block}
+    .nav-right{display:flex;align-items:center;gap:14px}
+    .progress-wrap{display:flex;align-items:center;gap:10px;min-width:260px}
+    .progress-track{height:8px;flex:1;max-width:190px;background:#e5e4de;border-radius:999px;overflow:hidden}
+    .progress-fill{height:100%;width:4%;background:var(--lime-2);border-radius:999px;transition:width .45s ease}
+    .progress-text{font-size:11px;font-weight:800;color:#4e5559;white-space:nowrap}
+
+    /* BUTTONS */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 18px;border:0;border-radius:14px;cursor:pointer;font-weight:800;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--lime);color:#0a0d0c;box-shadow:0 12px 30px rgba(199,255,65,.22)}
+    .btn-primary:hover{background:#d4ff6a}
+    .btn-dark{background:var(--ink);color:#fff}
+    .btn-white{background:#fff;color:var(--ink);border:1px solid rgba(255,255,255,.08)}
+    .btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+    .btn-small{min-height:42px;padding:0 14px;border-radius:11px;font-size:13px}
+
+    /* HERO */
+    .hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding:76px 0 74px}
+    .hero:before{content:"";position:absolute;right:-200px;top:-260px;width:720px;height:720px;border-radius:50%;background:radial-gradient(circle,rgba(199,255,65,.14),transparent 62%);filter:blur(10px)}
+    .hero:after{content:"";position:absolute;left:-220px;bottom:-360px;width:660px;height:660px;border-radius:50%;background:radial-gradient(circle,rgba(255,38,51,.10),transparent 62%)}
+    .hero-in{position:relative;z-index:1;display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:end}
+    .hero h1{font-size:clamp(44px,6.4vw,86px);line-height:.95;margin:18px 0 22px;max-width:760px}
+    .hero h1 span{color:var(--lime)}
+    .hero-copy{font-size:18px;color:#c8cdd0;max-width:650px}
+    .hero-sub{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid rgba(255,255,255,.12);border-radius:999px;color:#d8dddf;font-size:12px}
+    .chip:before{content:"✓";color:var(--lime);font-weight:900}
+    .hero-visual{position:relative;border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,#14181b,#0f1214);border-radius:26px;padding:20px;box-shadow:0 35px 100px rgba(0,0,0,.25);overflow:hidden}
+    .hero-window{background:#f6f6f1;color:#0c0e10;border-radius:18px;padding:18px}
+    .window-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .window-dots{display:flex;gap:5px}.window-dots i{width:7px;height:7px;border-radius:50%;background:#b9bec0}
+    .window-live{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;background:#eaf8d0;font-size:10px;font-weight:800;color:#3c5316}.window-live:before{content:"";width:6px;height:6px;background:#5bbf2e;border-radius:50%;animation:pulse 1.8s infinite}
+    .window-title{margin:25px 0 12px;font-family:"Space Grotesk";font-size:28px;font-weight:700;letter-spacing:-.04em}
+    .window-url{font-size:12px;color:#7c8387}
+    .hero-stage{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:20px}
+    .stage{border:1px solid #e0e1dd;border-radius:13px;padding:12px;background:#fff}
+    .stage small{display:block;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#83898c;font-weight:800}
+    .stage strong{display:block;margin-top:8px;font-size:14px}
+    .stage.active{border-color:#bbeb65;box-shadow:inset 0 0 0 1px rgba(199,255,65,.3)}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.78)}}
+
+    /* MAIN */
+    main{padding:88px 0 110px}
+    .section{margin-top:88px;scroll-margin-top:94px}
+    .section:first-child{margin-top:0}
+    .section-head{max-width:770px;margin-bottom:28px}
+    .section-head h2{font-size:clamp(38px,5vw,64px);line-height:.99;margin:14px 0 16px}
+    .section-head p{font-size:17px;color:var(--muted);max-width:710px}
+
+    /* FLOW */
+    .flow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .flow-card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow);overflow:hidden}
+    .flow-number{font-family:"Space Grotesk";font-size:12px;font-weight:800;color:#7a8285}
+    .flow-title{font-family:"Space Grotesk";font-size:25px;font-weight:700;letter-spacing:-.04em;margin-top:22px}
+    .flow-copy{color:var(--muted);font-size:14px;margin-top:8px}
+    .flow-card:after{content:"";position:absolute;right:-55px;bottom:-55px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(199,255,65,.22),transparent 64%)}
+
+    /* LESSON CARDS */
+    .lesson-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .lesson{background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:var(--shadow)}
+    .lesson-top{display:flex;justify-content:space-between;align-items:flex-start;gap:15px}
+    .lesson h3{font-family:"Space Grotesk";font-size:28px;line-height:1.05;margin:10px 0 8px;letter-spacing:-.04em}
+    .lesson p{margin:0;color:var(--muted);font-size:14px}
+    .lesson-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:#101417;color:var(--lime);font-weight:900;font-size:18px;flex:0 0 auto}
+    .lesson-visual{margin:20px 0;border:1px solid #e5e5df;background:#f8f8f4;border-radius:18px;padding:16px;min-height:145px}
+    .video-screen{height:112px;border-radius:13px;background:linear-gradient(135deg,#171b1e,#232a2e);display:grid;place-items:center;color:#fff;position:relative;overflow:hidden}
+    .video-screen:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(199,255,65,.18),transparent 30%)}
+    .play{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--lime);color:#111;font-weight:900;box-shadow:0 10px 30px rgba(199,255,65,.26)}
+    .lesson-actions{display:flex;flex-wrap:wrap;gap:10px}
+    .lesson-note{margin-top:14px;color:#7e8689;font-size:12px}
+
+    /* ASSET ROW */
+    .asset-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .asset{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;display:flex;gap:14px;align-items:flex-start;box-shadow:0 15px 45px rgba(11,13,15,.06)}
+    .asset-icon{width:42px;height:42px;border-radius:12px;background:#101417;color:var(--lime);display:grid;place-items:center;font-weight:900;flex:0 0 auto}
+    .asset h4{margin:0;font-family:"Space Grotesk";font-size:18px;letter-spacing:-.03em}
+    .asset p{margin:5px 0 0;color:var(--muted);font-size:13px}
+
+    /* BIG CHECKPOINT */
+    .checkpoint{position:relative;overflow:hidden;background:var(--ink);color:#fff;border-radius:30px;padding:42px;box-shadow:0 35px 100px rgba(11,13,15,.16)}
+    .checkpoint:after{content:"";position:absolute;right:-140px;top:-180px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(199,255,65,.20),transparent 66%)}
+    .checkpoint h2{font-family:"Space Grotesk";font-size:clamp(42px,6vw,76px);line-height:.94;letter-spacing:-.055em;max-width:730px;margin:14px 0}
+    .checkpoint p{max-width:650px;color:#b8bdc1;font-size:16px;position:relative;z-index:1}
+    .checkpoint .btn{position:relative;z-index:1}
+    .checkpoint-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;position:relative;z-index:1;align-items:end}
+    .check-list{display:grid;gap:10px;margin-top:22px}
+    .check-item{display:flex;gap:10px;align-items:center;color:#e2e5e6;font-size:13px}.check-item b{color:var(--lime)}
+
+    /* PROGRESS */
+    .phase{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0 10px}
+    .phase-title{font-family:"Space Grotesk";font-weight:700;letter-spacing:-.03em}
+    .phase-status{font-size:11px;font-weight:800;color:#677076}
+    .phase-line{height:7px;background:#e8e7e1;border-radius:999px;overflow:hidden}.phase-line > span{display:block;height:100%;width:0;background:var(--lime-2);border-radius:999px;transition:width .45s ease}
+
+    /* FOOTER */
+    footer{background:var(--ink);color:#fff;padding:42px 0}
+    .footer-in{display:flex;justify-content:space-between;align-items:flex-end;gap:30px}
+    .footer-logo{width:174px;filter:brightness(0) invert(1)}
+    .footer-copy{max-width:430px;color:#aeb5b9;font-size:13px;line-height:1.6;margin-top:14px}
+    .footer-right{text-align:right;color:#8d969b;font-size:12px}
+
+    /* TOAST */
+    .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:#101417;color:#fff;padding:12px 15px;border-radius:12px;font-size:12px;font-weight:700;opacity:0;pointer-events:none;z-index:100;transition:opacity .22s ease,transform .22s ease;box-shadow:0 14px 40px rgba(0,0,0,.2)}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    /* MOBILE */
+    @media (max-width:920px){
+      .hero-in,.checkpoint-grid{grid-template-columns:1fr}
+      .progress-wrap{min-width:190px}
+      .lesson-grid{grid-template-columns:1fr}
+      .asset-list{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:700px){
+      .wrap{width:min(var(--max),calc(100% - 28px))}
+      .nav-in{height:62px}.brand-logo{width:145px}.progress-wrap{min-width:0;flex:1;justify-content:flex-end}.progress-track{max-width:110px}.progress-text{display:none}
+      .hero{padding:54px 0 54px}.hero-in{gap:32px}.hero-copy{font-size:16px}.hero-stage{grid-template-columns:1fr}
+      main{padding:62px 0 88px}.section{margin-top:68px}.section-head p{font-size:15px}
+      .flow{grid-template-columns:1fr}.lesson-grid{grid-template-columns:1fr}.asset-list{grid-template-columns:1fr}
+      .checkpoint{padding:28px;border-radius:24px}.checkpoint h2{font-size:44px}.checkpoint-grid{gap:20px}
+      .footer-in{flex-direction:column;align-items:flex-start}.footer-right{text-align:left}
+      .btn{width:100%}.lesson-actions .btn{width:auto;flex:1}.nav-right .btn{width:auto}
+    }
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap nav-in">
+      <a href="#top" aria-label="Launch House home">
+        <img src="assets/launch-house-logo.svg" class="brand-logo" alt="Launch House">
+      </a>
+      <div class="nav-right">
+        <div class="progress-wrap" aria-label="Sprint progress">
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-text" id="progressText">0 / 3 complete</div>
+        </div>
+        <a class="btn btn-dark btn-small" href="#find">Continue →</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="wrap hero-in">
+      <div>
+        <div class="eyebrow" style="color:#bcc5c9">STARTUP BUILD SPRINT</div>
+        <h1 class="display">Let's launch your <span>startup.</span></h1>
+        <p class="hero-copy">You have 2 hours. We'll take you from idea to first version — then show you what to do next to get your first customers.</p>
+        <div class="hero-sub">
+          <span class="chip">Find an idea</span>
+          <span class="chip">Choose the MVP</span>
+          <span class="chip">Build with AI</span>
+          <span class="chip">Get your next step</span>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-window">
+          <div class="window-top">
+            <div class="window-dots"><i></i><i></i><i></i></div>
+            <div class="window-live">BUILD SPRINT</div>
+          </div>
+          <div class="window-title">Your startup journey</div>
+          <div class="window-url">Find → Choose → Build → Launch → Get customers</div>
+          <div class="hero-stage">
+            <div class="stage active"><small>01</small><strong>Find</strong></div>
+            <div class="stage"><small>02</small><strong>Choose</strong></div>
+            <div class="stage"><small>03</small><strong>Build</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+
+      <section class="section" id="find">
+        <div class="section-head">
+          <div class="eyebrow">STEP 01</div>
+          <h2 class="display">Find your idea.</h2>
+          <p>You do not need to invent a startup from scratch. Start with real opportunities, then choose one that fits you.</p>
+        </div>
+
+        <div class="lesson-grid">
+          <article class="lesson">
+            <div class="lesson-top">
+              <div>
+                <div class="eyebrow">START HERE</div>
+                <h3>Take your Founder Assessment.</h3>
+                <p>Answer a few simple questions and get your top 3 startup recommendations.</p>
+              </div>
+              <div class="lesson-icon">1</div>
+            </div>
+            <div class="lesson-visual">
+              <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#7c8488">Assessment output</div>
+              <div style="display:grid;gap:8px;margin-top:12px">
+                <div style="padding:11px;border-radius:12px;background:#fff;border:1px solid #e3e3de;font-weight:800">#1 — AI tool for Indian SMBs</div>
+                <div style="padding:11px;border-radius:12px;background:#fff;border:1px solid #e3e3de">#2 — B2B lead finder</div>
+                <div style="padding:11px;border-radius:12px;background:#fff;border:1px solid #e3e3de">#3 — Simple finance app</div>
+              </div>
+            </div>
+            <div class="lesson-actions">
+              <a class="btn btn-primary" data-link="assessment">Start Assessment →</a>
+            </div>
+          </article>
+
+          <article class="lesson">
+            <div class="lesson-top">
+              <div>
+                <div class="eyebrow">WATCH THIS</div>
+                <h3>How to choose an idea.</h3>
+                <p>A short video on how to use the database, compare ideas, and avoid getting stuck.</p>
+              </div>
+              <div class="lesson-icon">▶</div>
+            </div>
+            <div class="lesson-visual">
+              <div class="video-screen">
+                <div class="play">▶</div>
+              </div>
+            </div>
+            <div class="lesson-actions">
+              <a class="btn btn-dark" data-link="findVideo">Watch the video →</a>
+              <a class="btn btn-ghost" data-link="database">Open idea database</a>
+            </div>
+            <div class="lesson-note">The full idea database is view-only. Use it to explore beyond your top 3 recommendations.</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="choose">
+        <div class="section-head">
+          <div class="eyebrow">STEP 02</div>
+          <h2 class="display">Choose the right MVP.</h2>
+          <p>Do not try to build the whole company on day one. Decide what the smallest useful version should be.</p>
+        </div>
+
+        <article class="lesson">
+          <div class="lesson-top">
+            <div>
+              <div class="eyebrow">WATCH THIS</div>
+              <h3>How to decide what to build first.</h3>
+              <p>Use the MVP lesson to turn your startup idea into one clear first version. The idea database also gives you an MVP direction for each idea.</p>
+            </div>
+            <div class="lesson-icon">2</div>
+          </div>
+          <div class="lesson-visual">
+            <div class="video-screen">
+              <div class="play">▶</div>
+            </div>
+          </div>
+          <div class="lesson-actions">
+            <a class="btn btn-primary" data-link="mvpVideo">Watch the MVP video →</a>
+            <a class="btn btn-ghost" data-link="database">Open database MVP examples</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" id="build">
+        <div class="section-head">
+          <div class="eyebrow">STEP 03</div>
+          <h2 class="display">Build it with AI.</h2>
+          <p>Now turn the MVP into a real first version. You do not need to be a developer. Follow the videos, copy the prompts, and build step by step.</p>
+        </div>
+
+        <div class="lesson-grid">
+          <article class="lesson">
+            <div class="lesson-top">
+              <div>
+                <div class="eyebrow">BUILD WITH ME</div>
+                <h3>Watch the full vibe-coding build.</h3>
+                <p>See a startup idea turn into a working MVP using AI.</p>
+              </div>
+              <div class="lesson-icon">3</div>
+            </div>
+            <div class="lesson-visual">
+              <div class="video-screen">
+                <div class="play">▶</div>
+              </div>
+            </div>
+            <div class="lesson-actions">
+              <a class="btn btn-primary" data-link="buildVideo">Watch the build video →</a>
+            </div>
+          </article>
+
+          <article class="lesson">
+            <div class="lesson-top">
+              <div>
+                <div class="eyebrow">USE THESE</div>
+                <h3>Prompt library + setup guide.</h3>
+                <p>Copy the prompts, change the few words that matter, then paste them into GPT and your coding tool.</p>
+              </div>
+              <div class="lesson-icon">+</div>
+            </div>
+            <div class="lesson-visual" style="display:grid;align-content:center;gap:12px">
+              <div class="asset"><div class="asset-icon">P</div><div><h4>Prompt Library</h4><p>View-only Google Doc. Copy and use.</p></div></div>
+              <div class="asset"><div class="asset-icon">▶</div><div><h4>GitHub + Vercel setup</h4><p>Loom guide for connecting code, deploying, and adding your domain.</p></div></div>
+            </div>
+            <div class="lesson-actions">
+              <a class="btn btn-dark" data-link="promptLibrary">Open prompt library →</a>
+              <a class="btn btn-ghost" data-link="githubVideo">Watch setup guide</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="asset-list" style="margin-top:18px">
+          <div class="asset">
+            <div class="asset-icon">01</div>
+            <div><h4>Copy the prompt</h4><p>Use the ready-made prompt for the part you are building.</p></div>
+          </div>
+          <div class="asset">
+            <div class="asset-icon">02</div>
+            <div><h4>Change a few words</h4><p>Add your idea, audience, and product details.</p></div>
+          </div>
+          <div class="asset">
+            <div class="asset-icon">03</div>
+            <div><h4>Publish</h4><p>Connect GitHub, deploy with Vercel, and connect your domain.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="next-step">
+        <div class="checkpoint">
+          <div class="checkpoint-grid">
+            <div>
+              <div class="eyebrow" style="color:#bcc5c9">AFTER YOU BUILD</div>
+              <h2 class="display">Your next job is customers.</h2>
+              <p>Use the 30-day roadmap to move from “my product is live” to “people are using it.” Then take the next-step assessment to see what you need help with.</p>
+              <div class="check-list">
+                <div class="check-item"><b>✓</b> 30-day customer roadmap</div>
+                <div class="check-item"><b>✓</b> First-user actions to test</div>
+                <div class="check-item"><b>✓</b> Clear next-step assessment</div>
+              </div>
+            </div>
+            <div>
+              <div style="padding:18px;border:1px solid rgba(255,255,255,.11);border-radius:20px;background:rgba(255,255,255,.04);position:relative;z-index:1">
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:.09em;font-weight:800;color:#8e989d">Your 30-day mission</div>
+                <div style="font-family:'Space Grotesk';font-size:22px;font-weight:700;margin-top:8px">Get your first real users.</div>
+                <div style="display:grid;gap:8px;margin-top:16px">
+                  <div style="display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:11px;background:rgba(255,255,255,.05)"><span>Days 1–7</span><b>Get first conversations</b></div>
+                  <div style="display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:11px;background:rgba(255,255,255,.05)"><span>Days 8–14</span><b>Test the offer</b></div>
+                  <div style="display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:11px;background:rgba(255,255,255,.05)"><span>Days 15–30</span><b>Improve + sell</b></div>
+                </div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;position:relative;z-index:1">
+                <a class="btn btn-primary" data-link="roadmap">Download 30-day roadmap →</a>
+                <a class="btn btn-white" data-link="nextAssessment">Take next-step assessment →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Sprint summary">
+        <div class="section-head">
+          <div class="eyebrow">YOUR SPRINT</div>
+          <h2 class="display">Find → Choose → Build → Launch.</h2>
+          <p>Complete the three sections above in order. Your progress is saved on this device.</p>
+        </div>
+        <div class="phase"><span class="phase-title">Find your idea</span><span class="phase-status" id="findStatus">Not complete</span></div>
+        <div class="phase-line"><span id="findProgress"></span></div>
+        <div class="phase"><span class="phase-title">Choose your MVP</span><span class="phase-status" id="chooseStatus">Not complete</span></div>
+        <div class="phase-line"><span id="chooseProgress"></span></div>
+        <div class="phase"><span class="phase-title">Build and launch</span><span class="phase-status" id="buildStatus">Not complete</span></div>
+        <div class="phase-line"><span id="buildProgress"></span></div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footer-in">
+      <div>
+        <img src="assets/launch-house-logo.svg" class="footer-logo" alt="Launch House">
+        <div class="footer-copy">Launch House is a Startup Accelerator and founder ecosystem helping Indian founders turn ideas into real companies. From building and scaling to raising funds.</div>
+      </div>
+      <div class="footer-right">© 2026 Launch House<br>Build something real.</div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* =========================================================
+       LINK CONFIG
+       Replace the placeholder values below when each asset is ready.
+       ========================================================= */
+    const LINKS = {
+      assessment: '#ASSESSMENT_URL',
+      database: '#GOOGLE_SHEET_URL',
+      findVideo: '#FIND_IDEA_VIDEO_URL',
+      mvpVideo: '#MVP_VIDEO_URL',
+      buildVideo: '#VIBE_CODE_VIDEO_URL',
+      promptLibrary: '#PROMPT_LIBRARY_URL',
+      githubVideo: '#GITHUB_VERCEL_LOOM_URL',
+      roadmap: '#ROADMAP_FILE_URL',
+      nextAssessment: '#NEXT_ASSESSMENT_URL'
+    };
+
+    const linkLabels = {
+      assessment: 'Founder assessment',
+      database: 'Idea database',
+      findVideo: 'How to choose an idea video',
+      mvpVideo: 'MVP video',
+      buildVideo: 'Vibe-coding build video',
+      promptLibrary: 'Prompt library',
+      githubVideo: 'GitHub + Vercel setup guide',
+      roadmap: '30-day roadmap',
+      nextAssessment: 'Next-step assessment'
+    };
+
+    const toast = document.getElementById('toast');
+    let toastTimer;
+    function showToast(message){
+      clearTimeout(toastTimer);
+      toast.textContent = message;
+      toast.classList.add('show');
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    document.querySelectorAll('[data-link]').forEach(el => {
+      const key = el.getAttribute('data-link');
+      const url = LINKS[key];
+      if (!url) return;
+      el.setAttribute('href', url);
+      if (url.startsWith('#')) {
+        el.addEventListener('click', e => {
+          e.preventDefault();
+          showToast('Add the ' + linkLabels[key] + ' URL in the LINKS section of this file.');
+        });
+      }
+    });
+
+    /* Simple completion tracking. Users can mark a phase complete by visiting it. */
+    const completed = JSON.parse(localStorage.getItem('lhSprintProgress') || '{}');
+    const phases = ['find','choose','build'];
+
+    function saveProgress(){
+      localStorage.setItem('lhSprintProgress', JSON.stringify(completed));
+      updateProgressUI();
+    }
+
+    function updateProgressUI(){
+      const count = phases.filter(k => completed[k]).length;
+      const percent = (count / phases.length) * 100;
+      document.getElementById('progressFill').style.width = Math.max(4, percent) + '%';
+      document.getElementById('progressText').textContent = count + ' / 3 complete';
+      phases.forEach(k => {
+        const status = document.getElementById(k + 'Status');
+        const bar = document.getElementById(k + 'Progress');
+        if (completed[k]) {
+          status.textContent = 'Complete';
+          status.style.color = '#4f7310';
+          bar.style.width = '100%';
+        } else {
+          status.textContent = 'Not complete';
+          status.style.color = '';
+          bar.style.width = '0%';
+        }
+      });
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          const id = entry.target.id;
+          if(phases.includes(id) && !completed[id]){
+            /* Visiting counts as started, not completed. */
+            entry.target.dataset.started = 'true';
+          }
+        }
+      });
+    }, {threshold:.22});
+
+    phases.forEach(id => {
+      const el = document.getElementById(id);
+      if(el) observer.observe(el);
+    });
+
+    /* Completion buttons: finishing an action saves progress. */
+    document.querySelectorAll('[data-link]').forEach(el => {
+      const key = el.getAttribute('data-link');
+      el.addEventListener('click', () => {
+        const map = {
+          assessment:'find', findVideo:'find', database:'find',
+          mvpVideo:'choose', buildVideo:'build', promptLibrary:'build', githubVideo:'build',
+          roadmap:'build', nextAssessment:'build'
+        };
+        const phase = map[key];
+        if(phase){ completed[phase] = true; saveProgress(); }
+      });
+    });
+
+    updateProgressUI();
+  </script>
+</body>
+</html>
