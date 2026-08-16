@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#0b0d0f" />
+<title>₹1L/Month Readiness Assessment — Launch House</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0b0d0f;--ink2:#171b1e;--paper:#f7f6f1;--card:#fff;--line:rgba(11,13,15,.10);
+  --muted:#687176;--muted2:#93999d;--lime:#c7ff41;--lime2:#afe53a;
+  --shadow:0 28px 90px rgba(11,13,15,.12);--max:1160px
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;line-height:1.45}
+button{font:inherit}
+.wrap{width:min(var(--max),calc(100% - 40px));margin:0 auto}
+.display{font-family:"Space Grotesk",system-ui,sans-serif;letter-spacing:-.055em}
+.nav{position:sticky;top:0;z-index:50;background:rgba(247,246,241,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(11,13,15,.07)}
+.nav-in{height:68px;display:flex;align-items:center;justify-content:space-between}
+.logo{height:44px;width:auto;object-fit:contain}
+.nav-note{font-size:12px;color:var(--muted)}
+.hero{background:var(--ink);color:#fff;padding:64px 0 42px;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:-250px -150px auto auto;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(199,255,65,.16),transparent 64%)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:#aeb6ba;text-transform:uppercase;letter-spacing:.11em;font-size:11px;font-weight:800}
+.eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lime)}
+.hero h1{font-size:clamp(44px,7vw,84px);line-height:.93;max-width:850px;margin:16px 0}
+.hero h1 span{color:var(--lime)}
+.hero p{font-size:18px;max-width:740px;color:#c8cdd0;margin:0}
+.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.meta{padding:7px 10px;border:1px solid rgba(255,255,255,.13);border-radius:999px;font-size:11px;color:#d5dadc}
+.progress{margin-top:24px}
+.progress-top{display:flex;justify-content:space-between;font-size:12px;color:#bfc5c8;margin-bottom:8px}
+.track{height:8px;border-radius:999px;background:#24292c;overflow:hidden}
+.fill{height:100%;width:8%;background:var(--lime);border-radius:999px;transition:.3s ease}
+main{padding:52px 0 90px}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:26px;align-items:start}
+.sidebar{position:sticky;top:90px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:var(--shadow)}
+.sidebar h3{font-family:"Space Grotesk";font-size:18px;margin:0 0 12px}
+.sstep{display:flex;gap:10px;padding:11px 0;border-bottom:1px solid #eee;align-items:flex-start}
+.sstep:last-child{border-bottom:0}
+.sdot{width:24px;height:24px;border-radius:50%;background:#eceeea;display:grid;place-items:center;font-size:10px;font-weight:800;flex:0 0 auto}
+.sstep.active .sdot{background:var(--lime)}
+.sstep strong{font-size:13px;display:block}.sstep span{font-size:11px;color:var(--muted);display:block;margin-top:2px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}
+.question{padding:36px}
+.qmeta{display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:12px}
+.question h2{font-family:"Space Grotesk";font-size:clamp(34px,5vw,56px);line-height:.98;letter-spacing:-.055em;margin:26px 0 10px}
+.question p{color:var(--muted);max-width:720px;margin:0}
+.options{display:grid;gap:12px;margin-top:26px}
+.option{width:100%;text-align:left;padding:17px 18px;border:1px solid var(--line);background:#fafaf7;border-radius:16px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:.18s ease}
+.option:hover{transform:translateY(-2px);background:#fff;border-color:#b6bbbd;box-shadow:0 10px 26px rgba(11,13,15,.06)}
+.option.selected{background:#f6ffdf;border-color:var(--lime2);box-shadow:inset 0 0 0 1px rgba(175,229,58,.20)}
+.mark{width:24px;height:24px;border:1px solid #ccd0d1;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;flex:0 0 auto}
+.option.selected .mark{background:var(--lime);border-color:var(--lime)}
+.ocopy strong{display:block;font-size:14px}.ocopy span{display:block;font-size:12px;color:var(--muted);margin-top:3px}
+.actions{display:flex;justify-content:space-between;gap:10px;padding-top:20px;margin-top:26px;border-top:1px solid #eee}
+.btn{border:0;border-radius:14px;min-height:50px;padding:0 18px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:800;cursor:pointer;transition:.18s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn-dark{background:var(--ink);color:#fff}.btn-lime{background:var(--lime);color:#111;box-shadow:0 14px 32px rgba(199,255,65,.2)}.btn-ghost{background:#fff;border:1px solid var(--line);color:#111}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.result{padding:34px}.hidden{display:none!important}
+.result h2{font-family:"Space Grotesk";font-size:clamp(38px,5vw,62px);line-height:.95;letter-spacing:-.055em;margin:12px 0}
+.result-sub{color:var(--muted);max-width:780px}
+.numbers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.metric{background:#fafaf7;border:1px solid #ededE7;border-radius:18px;padding:16px}
+.metric span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:#8b9195;font-weight:800}
+.metric strong{display:block;font-family:"Space Grotesk";font-size:30px;letter-spacing:-.04em;margin-top:5px}
+.diagnosis{margin-top:22px;background:#111416;color:#fff;border-radius:22px;padding:22px}
+.diagnosis .eyebrow{color:#a9b0b4}
+.diagnosis h3{font-family:"Space Grotesk";font-size:30px;margin:10px 0 6px;letter-spacing:-.04em}
+.diagnosis p{color:#c2c8cb;max-width:760px;margin:0}
+.scores{display:grid;gap:10px;margin-top:18px}.score-row{display:grid;grid-template-columns:180px 1fr 45px;align-items:center;gap:10px;font-size:12px}
+.bar{height:8px;background:#252a2d;border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;background:var(--lime);border-radius:999px}
+.recommend{margin-top:24px}
+.recommend-card{border:1px solid var(--line);border-radius:24px;padding:22px;background:#fff}
+.recommend-card h3{font-family:"Space Grotesk";font-size:28px;letter-spacing:-.04em;margin:8px 0 5px}
+.badge{display:inline-flex;padding:7px 10px;border-radius:999px;background:#f1f3eb;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.info{background:#fafaf7;border:1px solid #ededE7;border-radius:14px;padding:13px}.info span{font-size:9px;color:#8b9194;text-transform:uppercase;letter-spacing:.08em;font-weight:800}.info strong{display:block;font-family:"Space Grotesk";margin-top:4px;font-size:16px}
+.copy{margin-top:16px;font-size:14px;line-height:1.55}.copy strong{display:block;margin-bottom:3px}
+.callout{margin-top:18px;padding:16px;border-radius:17px;background:#f4f8e9}
+.callout strong{display:block}.callout p{margin:5px 0 0;color:#566067;font-size:13px}
+.offer{margin-top:24px;background:var(--ink);color:#fff;border-radius:24px;padding:24px}
+.offer h3{font-family:"Space Grotesk";font-size:34px;letter-spacing:-.05em;margin:8px 0}.offer p{color:#c7cdcf;max-width:760px}
+.offer ul{margin:15px 0 0;padding-left:18px;color:#dbe0e2}.offer li{margin:5px 0}
+.offer .cta{margin-top:18px}
+.error{margin-top:16px;padding:14px 16px;background:#fff2f2;color:#8c2424;border:1px solid #efb5b5;border-radius:14px;font-size:13px}
+.footer{background:var(--ink);color:#fff;padding:34px 0}.footer-in{display:flex;justify-content:space-between;gap:20px;align-items:flex-end}.footer img{height:44px;filter:brightness(0) invert(1)}.footer p{font-size:12px;color:#9fa7ab;max-width:450px;margin:10px 0 0}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{position:static}.numbers{grid-template-columns:1fr 1fr}.score-row{grid-template-columns:130px 1fr 40px}}
+@media(max-width:640px){.wrap{width:min(var(--max),calc(100% - 28px))}.nav-note{display:none}.hero{padding:50px 0 34px}.hero h1{font-size:44px}.hero p{font-size:16px}.question,.result{padding:22px}.actions{flex-direction:column-reverse}.actions .btn{width:100%}.numbers{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.footer-in{flex-direction:column;align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a href="#" aria-label="Launch House"><img src="assets/launch-house-logo.png" class="logo" alt="Launch House"></a>
+    <span class="nav-note">₹1L/month readiness assessment</span>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Take Your Startup to ₹1 Lakh / Month</div>
+    <h1>How close are you to <span>₹1L/month?</span></h1>
+    <p>Answer a few questions about your startup, customers and sales. We'll show your current gap, your biggest bottleneck and the next step most likely to move you toward ₹1L/month.</p>
+    <div class="hero-meta">
+      <span class="meta">12 questions</span>
+      <span class="meta">~3 minutes</span>
+      <span class="meta">Get your ₹1L path</span>
+    </div>
+    <div class="progress">
+      <div class="progress-top"><span id="progressText">Question 1 of 12</span><span id="progressPct">8%</span></div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="wrap layout">
+    <aside class="sidebar">
+      <h3>Your ₹1L diagnosis</h3>
+      <div class="sstep active"><div class="sdot">1</div><div><strong>Goal</strong><span>Intent + timeline</span></div></div>
+      <div class="sstep"><div class="sdot">2</div><div><strong>Current business</strong><span>Revenue + customers</span></div></div>
+      <div class="sstep"><div class="sdot">3</div><div><strong>Acquisition</strong><span>Leads + sales</span></div></div>
+      <div class="sstep"><div class="sdot">4</div><div><strong>Conversion</strong><span>Offer + process</span></div></div>
+      <div class="sstep"><div class="sdot">5</div><div><strong>Your next step</strong><span>Personal diagnosis</span></div></div>
+    </aside>
+
+    <section class="panel">
+      <div class="question" id="questionView">
+        <div class="qmeta"><span id="qNum">Question 1 / 12</span><span>Choose the answer that is true today</span></div>
+        <h2 id="qTitle"></h2>
+        <p id="qHelp"></p>
+        <div class="options" id="options"></div>
+        <div class="actions">
+          <button class="btn btn-ghost" id="back" type="button">← Back</button>
+          <button class="btn btn-dark" id="next" type="button">Next →</button>
+        </div>
+      </div>
+
+      <div class="result hidden" id="resultView">
+        <div class="eyebrow">Your ₹1L/month diagnosis</div>
+        <h2 id="resultTitle">Here is what is holding you back.</h2>
+        <p class="result-sub" id="resultSub"></p>
+
+        <div class="numbers">
+          <div class="metric"><span>Current revenue</span><strong id="currentRevenue">₹0</strong></div>
+          <div class="metric"><span>Target</span><strong>₹1L</strong></div>
+          <div class="metric"><span>Monthly gap</span><strong id="revenueGap">₹1L</strong></div>
+        </div>
+
+        <div class="diagnosis">
+          <div class="eyebrow">Your biggest bottleneck</div>
+          <h3 id="bottleneck">Customer acquisition</h3>
+          <p id="bottleneckCopy"></p>
+          <div class="scores">
+            <div class="score-row"><span>Intent</span><div class="bar"><span id="intentBar"></span></div><b id="intentScore">0%</b></div>
+            <div class="score-row"><span>Offer & conversion</span><div class="bar"><span id="offerBar"></span></div><b id="offerScore">0%</b></div>
+            <div class="score-row"><span>Customer acquisition</span><div class="bar"><span id="acqBar"></span></div><b id="acqScore">0%</b></div>
+            <div class="score-row"><span>Execution</span><div class="bar"><span id="execBar"></span></div><b id="execScore">0%</b></div>
+          </div>
+        </div>
+
+        <div class="recommend">
+          <span class="badge" id="pathBadge">Your next step</span>
+          <div class="recommend-card">
+            <h3 id="pathTitle">Build a repeatable customer acquisition system</h3>
+            <div class="grid2">
+              <div class="info"><span>Your current level</span><strong id="levelText">Early stage</strong></div>
+              <div class="info"><span>Recommended focus</span><strong id="focusText">More qualified leads</strong></div>
+            </div>
+            <div class="copy"><strong>What this means</strong><span id="meaningText"></span></div>
+            <div class="copy"><strong>The math</strong><span id="mathText"></span></div>
+            <div class="callout"><strong>Why the next course fits</strong><p id="courseReason"></p></div>
+          </div>
+        </div>
+
+        <div class="offer">
+          <div class="eyebrow">Recommended next course</div>
+          <h3>Take Your Startup to ₹1 Lakh / Month</h3>
+          <p>A practical system to turn your current startup into a repeatable customer and revenue engine.</p>
+          <ul>
+            <li>Pick the right customer and offer</li>
+            <li>Build a repeatable lead-generation system</li>
+            <li>Improve landing-page and sales conversion</li>
+            <li>Create a 30–60 day customer acquisition plan</li>
+            <li>Track the numbers that actually move revenue</li>
+          </ul>
+          <div class="cta">
+            <a class="btn btn-lime" id="courseButton" href="#" target="_blank" rel="noopener">Take My Startup to ₹1L/month →</a>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-ghost" id="retake" type="button">Retake Assessment</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-in">
+    <div>
+      <img src="assets/launch-house-logo.png" alt="Launch House">
+      <p>Launch House is a Startup Accelerator and founder ecosystem helping Indian founders turn ideas into real companies.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const CONFIG = {
+  courseUrl: "https://REPLACE-WITH-YOUR-COURSE-URL.com"
+};
+
+const QUESTIONS = [
+  {id:"importance",title:"How important is reaching ₹1L/month to you?",help:"This helps us measure your intent, not just your interest.",options:[
+    {v:1,t:"Just curious",s:"I want to understand what it takes."},
+    {v:2,t:"It would be nice",s:"I am interested, but it is not urgent."},
+    {v:3,t:"Important",s:"I seriously want to get there."},
+    {v:4,t:"Very important",s:"This is one of my main goals."},
+    {v:5,t:"I want this badly",s:"I am ready to work for it."}
+  ]},
+  {id:"timeline",title:"When do you want to reach ₹1L/month?",help:"A tighter goal usually needs a tighter execution plan.",options:[
+    {v:"none",t:"No fixed timeline"},
+    {v:"12+",t:"12+ months"},
+    {v:"6-12",t:"6–12 months"},
+    {v:"3-6",t:"3–6 months"},
+    {v:"90",t:"Within 90 days"}
+  ]},
+  {id:"revenue",title:"How much does your startup make today?",help:"Use your current monthly revenue, not your best month.",options:[
+    {v:0,t:"₹0"},
+    {v:5000,t:"₹1–₹10k"},
+    {v:20000,t:"₹10–₹25k"},
+    {v:37500,t:"₹25–₹50k"},
+    {v:62500,t:"₹50–₹75k"},
+    {v:87500,t:"₹75k–₹1L"},
+    {v:125000,t:"₹1L+"}
+  ]},
+  {id:"customers",title:"How many paying customers do you have today?",help:"We are measuring real customer traction.",options:[
+    {v:0,t:"0"},
+    {v:3,t:"1–5"},
+    {v:12,t:"6–20"},
+    {v:35,t:"21–50"},
+    {v:75,t:"51+"}
+  ]},
+  {id:"leads",title:"How many new leads did you get last month?",help:"A lead is someone who showed real interest or can be followed up with.",options:[
+    {v:0,t:"0"},
+    {v:5,t:"1–10"},
+    {v:30,t:"11–50"},
+    {v:75,t:"51–100"},
+    {v:150,t:"100+"}
+  ]},
+  {id:"channel",title:"Where do most of your customers come from today?",help:"Pick the source that currently creates the most real customer activity.",options:[
+    {v:"network",t:"Friends / personal network"},
+    {v:"outbound",t:"Outbound"},
+    {v:"instagram",t:"Instagram / social"},
+    {v:"youtube",t:"YouTube / content"},
+    {v:"seo",t:"SEO / Google"},
+    {v:"ads",t:"Paid ads"},
+    {v:"referrals",t:"Referrals"},
+    {v:"marketplace",t:"Marketplace / platform"},
+    {v:"none",t:"I don't have a reliable source yet"}
+  ]},
+  {id:"outreach",title:"How often do you actively reach out to potential customers?",help:"This measures whether customer acquisition is actually part of your weekly work.",options:[
+    {v:0,t:"Never"},
+    {v:1,t:"1–2 days a week"},
+    {v:2,t:"3–4 days a week"},
+    {v:3,t:"Every day"}
+  ]},
+  {id:"offer",title:"Can you explain in one sentence why someone should pay you?",help:"A clear offer is a major part of conversion.",options:[
+    {v:1,t:"No, not yet"},
+    {v:2,t:"I have a rough answer"},
+    {v:3,t:"Yes, it is clear"}
+  ]},
+  {id:"price",title:"Do you have a clear price today?",help:"A buyer needs to know what they are buying and what it costs.",options:[
+    {v:0,t:"No price yet"},
+    {v:1,t:"I have a rough price"},
+    {v:2,t:"Yes, clear price"}
+  ]},
+  {id:"conversion",title:"What is your lead → customer conversion rate?",help:"If you do not track it, choose 'I don't know'.",options:[
+    {v:0,t:"I don't know"},
+    {v:1,t:"Under 2%"},
+    {v:2,t:"2–5%"},
+    {v:3,t:"5–10%"},
+    {v:4,t:"10%+"}
+  ]},
+  {id:"selling",title:"Are you willing to personally sell for the next 30 days?",help:"Early revenue usually needs direct action from the founder.",options:[
+    {v:0,t:"No"},
+    {v:1,t:"Maybe"},
+    {v:2,t:"Yes"},
+    {v:3,t:"Absolutely"}
+  ]},
+  {id:"bottleneck",title:"What is stopping you from reaching ₹1L/month?",help:"Pick the problem that feels most true today.",options:[
+    {v:"leads",t:"I don't know how to get leads"},
+    {v:"conversion",t:"I get leads but they don't buy"},
+    {v:"offer",t:"I don't know what to sell or how to price it"},
+    {v:"product",t:"My product needs improvement"},
+    {v:"customer",t:"I don't know which customers to target"},
+    {v:"consistency",t:"I struggle to execute consistently"}
+  ]}
+];
+
+let index=0;
+let answers={};
+
+const $=id=>document.getElementById(id);
+
+function renderQuestion(){
+  const q=QUESTIONS[index];
+  $("qNum").textContent=`Question ${index+1} / ${QUESTIONS.length}`;
+  $("progressText").textContent=`Question ${index+1} of ${QUESTIONS.length}`;
+  const pct=Math.round((index+1)/QUESTIONS.length*100);
+  $("progressPct").textContent=pct+"%";
+  $("fill").style.width=pct+"%";
+  $("qTitle").textContent=q.title;
+  $("qHelp").textContent=q.help;
+  $("back").disabled=index===0;
+  $("next").textContent=index===QUESTIONS.length-1?"See My ₹1L Diagnosis →":"Next →";
+  $("options").innerHTML="";
+  q.options.forEach((o,i)=>{
+    const b=document.createElement("button");
+    b.className="option"+(String(answers[q.id])===String(o.v)?" selected":"");
+    b.type="button";
+    b.innerHTML=`<span class="mark">${String(answers[q.id])===String(o.v)?"✓":String.fromCharCode(65+i)}</span><span class="ocopy"><strong>${esc(o.t)}</strong>${o.s?`<span>${esc(o.s)}</span>`:""}</span>`;
+    b.onclick=()=>{answers[q.id]=o.v;localStorage.setItem("lh_1l_answers",JSON.stringify(answers));renderQuestion()};
+    $("options").appendChild(b);
+  });
+}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+
+function readiness(){
+  const a=answers;
+  const intent=Math.round(((Number(a.importance||1)-1)/4*0.55 + timelineScore(a.timeline)*0.45)*100);
+  const offer=Math.round(((Number(a.offer||1)-1)/2*0.55 + (Number(a.price||0)/2)*0.2 + ((Number(a.conversion||0))/4)*0.25)*100);
+  const acq=Math.round(((Math.min(Number(a.leads||0),150)/150)*0.40 + (Number(a.outreach||0)/3)*0.20 + (Number(a.customers||0)/75)*0.15 + channelScore(a.channel)*0.25)*100);
+  const exec=Math.round(((Number(a.selling||0)/3)*0.45 + timeCommitScore(a.timeline)*0.1 + (Number(a.importance||1)/5)*0.45)*100);
+
+  const current=Number(a.revenue||0);
+  const gap=Math.max(0,100000-current);
+
+  const bottleneck = chooseBottleneck({intent,offer,acq,exec},a);
+  const level=current===0?"Pre-revenue":current<25000?"Early traction":current<50000?"Traction":"Growth stage";
+
+  return {intent:clamp(intent,0,100),offer:clamp(offer,0,100),acq:clamp(acq,0,100),exec:clamp(exec,0,100),current,gap,bottleneck,level};
+}
+function timelineScore(v){
+  return ({none:.35,"12+":.45,"6-12":.65,"3-6":.85,"90":1}[v]||.35);
+}
+function timeCommitScore(v){
+  return ({none:.2,"12+":.35,"6-12":.5,"3-6":.75,"90":1}[v]||.2);
+}
+function channelScore(v){
+  if(!v||v==="none")return 0;
+  return 1;
+}
+function clamp(n,a,b){return Math.max(a,Math.min(b,n))}
+
+function chooseBottleneck(s,a){
+  if(a.bottleneck==="leads") return "Customer acquisition";
+  if(a.bottleneck==="conversion") return "Conversion";
+  if(a.bottleneck==="offer") return "Offer & pricing";
+  if(a.bottleneck==="product") return "Product";
+  if(a.bottleneck==="customer") return "Customer selection";
+
+  const arr=[
+    ["Customer acquisition",s.acq],
+    ["Offer & conversion",s.offer],
+    ["Execution",s.exec]
+  ].sort((a,b)=>a[1]-b[1]);
+  return arr[0][0];
+}
+
+function pathFor(r){
+  if(r.bottleneck==="Product") return {
+    badge:"Your next priority",
+    title:"Get the product to a state people will pay for.",
+    focus:"Product + customer feedback",
+    meaning:"You may not need more traffic yet. First make the offer and product strong enough to create a clear customer win.",
+    math:`Your current revenue is ${money(r.current)}. The gap to ₹1L/month is ${money(r.gap)}. More traffic will not fix a weak offer.`,
+    reason:"The course should help you connect product, customer problem, offer and acquisition instead of adding random marketing tactics."
+  };
+  if(r.bottleneck==="Conversion") return {
+    badge:"Your next priority",
+    title:"Turn more of your existing interest into paying customers.",
+    focus:"Offer + landing page + sales",
+    meaning:"You already have some attention. The next ₹ of revenue may come from converting more of it.",
+    math:`Your current revenue is ${money(r.current)}. You need ${money(r.gap)} more per month. Improving conversion can increase revenue without needing the same increase in traffic.`,
+    reason:"The course focuses on offer clarity, conversion and the sales process so your existing leads work harder."
+  };
+  if(r.bottleneck==="Offer & pricing") return {
+    badge:"Your next priority",
+    title:"Make the offer easier to understand and buy.",
+    focus:"Offer + pricing",
+    meaning:"If the buyer is not clear on what they get and why it is worth paying for, acquisition will leak.",
+    math:`You need ${money(r.gap)} more per month to reach ₹1L. A clearer offer can increase both conversion and the amount each customer pays.`,
+    reason:"The next course gives you a framework for defining the customer, promise, price and path to purchase."
+  };
+  if(r.bottleneck==="Customer selection") return {
+    badge:"Your next priority",
+    title:"Pick a customer you can reach and sell to repeatedly.",
+    focus:"ICP + distribution",
+    meaning:"The fastest route to ₹1L is rarely 'everyone'. It is usually a narrow buyer with a painful problem and reachable demand.",
+    math:`You need ${money(r.gap)} more per month. A narrow customer target makes your message and acquisition work much more focused.`,
+    reason:"The course is designed to turn a broad startup into a clear customer and acquisition plan."
+  };
+  return {
+    badge:"Your next priority",
+    title:"Build a repeatable customer acquisition system.",
+    focus:"Qualified leads + sales",
+    meaning:"Your biggest gap is getting enough qualified people into the pipeline and moving them to a sale.",
+    math:`Your current revenue is ${money(r.current)}. You need ${money(r.gap)} more per month. At ₹10k per sale, that is ${Math.ceil(r.gap/10000)} additional sales per month.`,
+    reason:"The course gives you a practical path from customer selection → lead generation → landing page → sales → weekly execution."
+  };
+}
+function money(n){
+  if(n>=100000) return "₹1L+";
+  if(n>=1000) return "₹"+Math.round(n/1000)+"k";
+  return "₹"+Math.round(n);
+}
+
+function showResults(){
+  const r=readiness();
+  const p=pathFor(r);
+
+  $("questionView").classList.add("hidden");
+  $("resultView").classList.remove("hidden");
+  $("fill").style.width="100%";
+  $("progressPct").textContent="100%";
+  $("progressText").textContent="Assessment complete";
+
+  $("resultTitle").textContent=r.intent>=75 ? "You are serious about ₹1L/month. Here's the gap." : "Here is what would move you closer to ₹1L/month.";
+  $("resultSub").textContent=`You are currently at ${money(r.current)}/month. Your target is ₹1L/month. We used your answers on intent, traction, acquisition, conversion and execution to identify the next bottleneck.`;
+
+  $("currentRevenue").textContent=money(r.current);
+  $("revenueGap").textContent=money(r.gap);
+  $("bottleneck").textContent=r.bottleneck;
+
+  const copy={
+    "Customer acquisition":"You have the clearest need to build a system that brings qualified people into your business every week. More consistent lead flow gives your sales process something to work with.",
+    "Conversion":"Your bigger opportunity is likely inside the people who already show interest. Improve the offer, page and sales process before simply buying more traffic.",
+    "Offer & pricing":"Your next step is to make the value, price and buyer much clearer. A strong acquisition system cannot compensate for an offer that is hard to understand or buy.",
+    "Customer selection":"You need a tighter customer. A narrow buyer makes your message, channel and sales process easier to repeat.",
+    "Product":"You need stronger proof of value before scaling acquisition. Talk to customers, improve the core outcome, then push acquisition harder.",
+    "Execution":"You have a goal but not enough consistent action yet. The fastest improvement may be a simple weekly operating rhythm."
+  };
+  $("bottleneckCopy").textContent=copy[r.bottleneck]||copy["Customer acquisition"];
+
+  setScore("intent",r.intent);setScore("offer",r.offer);setScore("acq",r.acq);setScore("exec",r.exec);
+
+  $("pathBadge").textContent=p.badge;
+  $("pathTitle").textContent=p.title;
+  $("levelText").textContent=r.level;
+  $("focusText").textContent=p.focus;
+  $("meaningText").textContent=p.meaning;
+  $("mathText").textContent=p.math;
+  $("courseReason").textContent=p.reason;
+
+  $("courseButton").href=CONFIG.courseUrl;
+  $("resultView").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function setScore(name,value){
+  $(name+"Bar").style.width=value+"%";
+  $(name+"Score").textContent=value+"%";
+}
+function nextQ(){
+  const q=QUESTIONS[index];
+  if(answers[q.id]===undefined){
+    $("next").animate([{transform:"translateX(-3px)"},{transform:"translateX(3px)"},{transform:"translateX(0)"}],{duration:180});
+    return;
+  }
+  if(index===QUESTIONS.length-1){localStorage.setItem("lh_1l_answers",JSON.stringify(answers));showResults();return;}
+  index++;renderQuestion();window.scrollTo({top:0,behavior:"smooth"});
+}
+function backQ(){if(index>0){index--;renderQuestion();window.scrollTo({top:0,behavior:"smooth"});}}
+function resetQ(){index=0;answers={};localStorage.removeItem("lh_1l_answers");$("resultView").classList.add("hidden");$("questionView").classList.remove("hidden");renderQuestion();window.scrollTo({top:0,behavior:"smooth"});}
+
+$("next").onclick=nextQ;
+$("back").onclick=backQ;
+$("retake").onclick=resetQ;
+$("courseButton").onclick=()=>{};
+try{
+  const saved=JSON.parse(localStorage.getItem("lh_1l_answers")||"null");
+  if(saved&&typeof saved==="object")answers=saved;
+}catch(e){}
+renderQuestion();
+</script>
+</body>
+</html>
