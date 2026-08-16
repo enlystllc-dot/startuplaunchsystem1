@@ -1,11 +1,4 @@
-# Launch House — ₹1L/month Assessment
-
-Static client-side assessment for the next-course upsell.
-
-Flow:
-Intent + timeline → current revenue/traction → acquisition → offer/conversion → willingness to sell → bottleneck → personalized ₹1L/month diagnosis → course CTA.
-
-Before deployment:
-1. Open assessment.html.
-2. Replace CONFIG.courseUrl with the live URL of the course.
-3. Keep assessment.html and assets/launch-house-logo.png together.
+# Launch House — Get Your First 100 Customers
+Static landing page.
+Replace `https://REPLACE-WITH-YOUR-CHECKOUT-URL.com` in `index.html` with the real checkout URL.
+Keep `assets/launch-house-logo.png` beside `index.html`.
