@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get Your First 100 Customers — Launch House</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#111416;--paper:#f7f6f1;--white:#fff;--lime:#c7ff41;
+  --muted:#697176;--line:rgba(17,20,22,.10);--soft:#eef8d8;--max:1120px
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",Arial,sans-serif;line-height:1.5}
+a{text-decoration:none;color:inherit}
+button{font:inherit}
+.wrap{width:min(var(--max),calc(100% - 32px));margin:auto}
+h1,h2,h3,h4{font-family:"Space Grotesk",Arial,sans-serif;letter-spacing:-.05em}
+.nav{position:sticky;top:0;z-index:50;background:#f7f6f1ed;backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.navin{height:70px;display:flex;align-items:center;justify-content:space-between}
+.logo{height:40px}
+.navright{display:flex;gap:10px;align-items:center}
+.progressMini{font-size:10px;color:var(--muted);font-weight:700}
+.navbtn,.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;font-weight:800;cursor:pointer}
+.navbtn{background:var(--ink);color:#fff;padding:10px 14px;font-size:10px}
+.hero{background:var(--ink);color:#fff;padding:64px 0 55px;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;width:700px;height:700px;right:-260px;top:-340px;border-radius:50%;background:radial-gradient(circle,#c7ff4130,transparent 63%)}
+.heroGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:45px;align-items:center;position:relative}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:800;color:#7b8488}
+.eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lime)}
+.hero .eyebrow{color:#aeb6b9}
+.hero h1{font-size:clamp(48px,7vw,82px);line-height:.9;margin:14px 0 18px}
+.hero h1 span{color:var(--lime)}
+.hero p{color:#c8ced0;font-size:17px;max-width:650px;margin:0}
+.hero p+p{margin-top:9px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.pill{border:1px solid #fff2;color:#d8dddf;border-radius:999px;padding:7px 10px;font-size:10px}
+.heroCard{background:#fff;color:var(--ink);border-radius:25px;padding:24px;box-shadow:0 30px 90px #0006}
+.heroCard small{color:#7c8589;font-size:9px;text-transform:uppercase;letter-spacing:.1em;font-weight:800}
+.heroCard h3{font-size:28px;margin:8px 0}
+.route{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:16px}
+.route span{background:#f0f2ed;border-radius:999px;padding:7px 9px;font-size:9px;font-weight:800}
+.route b{font-size:11px;color:#8b9295}
+.heroStat{margin-top:20px;padding-top:16px;border-top:1px solid #eee;display:flex;justify-content:space-between;gap:10px}
+.heroStat strong{font:700 28px "Space Grotesk"}
+.heroStat span{font-size:10px;color:var(--muted);display:block}
+.main{padding:38px 0 90px}
+.intro{background:#fff;border:1px solid var(--line);border-radius:24px;padding:25px;box-shadow:0 18px 60px #1114160a}
+.intro h2{font-size:31px;margin:7px 0}
+.intro p{color:var(--muted);max-width:760px;margin:0}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{min-height:45px;padding:0 15px;border:0;font-size:11px}
+.lime{background:var(--lime);color:var(--ink)}
+.dark{background:var(--ink);color:#fff}
+.progress{margin-top:15px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px}
+.progressTop{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+.bar{height:8px;background:#eceee9;border-radius:999px;margin-top:8px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--lime);transition:.35s}
+.sectionHead{margin:45px 0 18px}
+.sectionHead h2{font-size:37px;margin:6px 0}
+.sectionHead p{color:var(--muted);margin:0;max-width:720px}
+.modules{display:grid;grid-template-columns:1fr;gap:13px}
+.module{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.moduleTop{display:grid;grid-template-columns:74px 1fr auto;gap:16px;align-items:center;padding:21px 22px;cursor:pointer}
+.num{width:46px;height:46px;border-radius:14px;background:#eef0eb;display:grid;place-items:center;font:700 14px "Space Grotesk"}
+.module.active .num{background:var(--lime)}
+.module h3{font-size:24px;margin:0 0 3px}
+.moduleTop p{font-size:12px;color:var(--muted);margin:0}
+.badge{font-size:8px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;background:#eef0eb;padding:6px 8px;border-radius:999px;white-space:nowrap}
+.module.active .badge{background:var(--soft)}
+.chev{font-size:22px;color:#7d8588;transition:.2s}
+.module.active .chev{transform:rotate(180deg)}
+.moduleBody{display:none;border-top:1px solid #eee;padding:22px}
+.module.active .moduleBody{display:block}
+.bodyGrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.lessons{display:grid;gap:10px}
+.lesson{border:1px solid var(--line);border-radius:16px;padding:15px;display:grid;grid-template-columns:35px 1fr auto;gap:11px;align-items:center}
+.lessonIcon{width:32px;height:32px;border-radius:9px;background:var(--soft);display:grid;place-items:center;font-size:10px;font-weight:900}
+.lesson h4{font-size:15px;margin:0 0 2px}
+.lesson p{font-size:10px;color:var(--muted);margin:0}
+.lesson a{font-size:9px;font-weight:800;text-decoration:underline}
+.output{background:var(--ink);color:#fff;border-radius:19px;padding:19px}
+.output .eyebrow{color:#aeb6b9}
+.output h4{font-size:22px;margin:7px 0}
+.output p{color:#c5cbcd;font-size:12px}
+.output ul{padding-left:18px;color:#d3d8da;font-size:11px}
+.result{margin-top:15px;padding:13px;border-radius:13px;background:#1d2326;color:#fff;font-size:11px}
+.result strong{color:var(--lime);display:block;margin-bottom:3px}
+.task{margin-top:18px;background:var(--soft);border-radius:17px;padding:16px}
+.task strong{font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+.task p{font-size:12px;color:#596267;margin:5px 0 0}
+.resources{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.resource{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px}
+.resource h4{font-size:16px;margin:0 0 4px}
+.resource p{font-size:11px;color:var(--muted);margin:0}
+.resource a{display:inline-block;margin-top:10px;font-size:9px;font-weight:800;text-decoration:underline}
+.icon{width:31px;height:31px;border-radius:9px;background:var(--soft);display:grid;place-items:center;font-size:10px;font-weight:900;margin-bottom:12px}
+.final{margin-top:45px;background:var(--ink);color:#fff;border-radius:27px;padding:36px;text-align:center}
+.final h2{font-size:43px;line-height:.95;margin:9px auto 12px;max-width:780px}
+.final h2 span{color:var(--lime)}
+.final p{color:#c6cccf;max-width:650px;margin:auto}
+.footer{background:#080a0b;color:#fff;padding:35px 0}
+.footerIn{display:flex;justify-content:space-between;gap:20px}
+.footer img{height:39px;filter:brightness(0) invert(1)}
+.footer p{font-size:11px;color:#969da1;max-width:450px}
+.toast{position:fixed;right:18px;bottom:18px;background:var(--ink);color:#fff;padding:12px 15px;border-radius:12px;font-size:11px;font-weight:800;opacity:0;transform:translateY(8px);transition:.2s;pointer-events:none}
+.toast.show{opacity:1;transform:none}
+@media(max-width:850px){.heroGrid{grid-template-columns:1fr}.bodyGrid{grid-template-columns:1fr}.resources{grid-template-columns:1fr 1fr}.progressMini{display:none}}
+@media(max-width:600px){.wrap{width:calc(100% - 28px)}.hero{padding:48px 0}.hero h1{font-size:50px}.heroCard{margin-top:5px}.moduleTop{grid-template-columns:52px 1fr 20px;padding:17px}.num{width:40px;height:40px}.module h3{font-size:20px}.badge{display:none}.moduleBody{padding:17px}.lesson{grid-template-columns:31px 1fr}.lesson a{grid-column:2}.resources{grid-template-columns:1fr}.final{padding:29px 19px}.final h2{font-size:38px}.footerIn{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap navin">
+    <a href="#"><img class="logo" src="assets/launch-house-logo.png" alt="Launch House"></a>
+    <div class="navright">
+      <span class="progressMini" id="navProgress">0 / 7 sections</span>
+      <a class="navbtn" href="#program">VIEW PROGRAM →</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap heroGrid">
+    <div>
+      <div class="eyebrow">Launch House • Customer Acquisition</div>
+      <h1>Get Your First <span>100 Customers</span></h1>
+      <p>Your startup is built.</p>
+      <p>Now learn how to find people, talk to them, get them to pay, and get more customers.</p>
+      <div class="pills">
+        <span class="pill">7 simple sections</span>
+        <span class="pill">20 practical videos</span>
+        <span class="pill">Ready-to-use tools</span>
+      </div>
+    </div>
+    <div class="heroCard">
+      <small>Your journey</small>
+      <h3>0 → 1 → 10 → 100</h3>
+      <div class="route">
+        <span>FIND</span><b>→</b><span>OFFER</span><b>→</b><span>REACH</span><b>→</b><span>TALK</span><b>→</b><span>SELL</span>
+      </div>
+      <div class="heroStat">
+        <div><strong>7</strong><span>Sections</span></div>
+        <div><strong>20+</strong><span>Practical lessons</span></div>
+        <div><strong>10+</strong><span>Tools & scripts</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="main">
+<div class="wrap">
+
+<section class="intro">
+  <div class="eyebrow">Start here</div>
+  <h2>Your job is not to watch.</h2>
+  <p>Your job is to build customers. Each section teaches one skill and gives you something useful to create. Finish the task, then move to the next section.</p>
+  <div class="actions">
+    <a class="btn lime" href="#program">START SECTION 1 →</a>
+    <a class="btn dark" href="#resources">SEE WHAT YOU GET</a>
+  </div>
+</section>
+
+<div class="progress">
+  <div class="progressTop"><span id="progressText">0 of 7 sections completed</span><strong id="progressPct">0%</strong></div>
+  <div class="bar"><span id="progressBar"></span></div>
+</div>
+
+<section id="program">
+  <div class="sectionHead">
+    <div class="eyebrow">The program</div>
+    <h2>7 steps to your first 100 customers.</h2>
+    <p>Simple lessons. Real work. One clear result at the end of every section.</p>
+  </div>
+
+  <div class="modules">
+
+    <article class="module active" data-module="1">
+      <div class="moduleTop">
+        <div class="num">01</div>
+        <div><h3>Find Your Customer</h3><p>Know who will buy from you.</p></div>
+        <span class="badge">Start here</span><span class="chev">⌄</span>
+      </div>
+      <div class="moduleBody">
+        <div class="bodyGrid">
+          <div class="lessons">
+            <div class="lesson"><div class="lessonIcon">01</div><div><h4>Who Should Buy Your Product?</h4><p>Find the people who need your product and can pay for it.</p></div><a href="#" data-link="l1">VIDEO →</a></div>
+            <div class="lesson"><div class="lessonIcon">02</div><div><h4>Find Your Customer's Real Problem</h4><p>Learn what they want, what hurts, and what they already tried.</p></div><a href="#" data-link="l2">VIDEO →</a></div>
+            <div class="lesson"><div class="lessonIcon">03</div><div><h4>Choose Your First Customer Group</h4><p>Choose one clear group to start with.</p></div><a href="#" data-link="l3">VIDEO →</a></div>
+          </div>
+          <div class="output">
+            <div class="eyebrow">You will create</div><h4>Customer Profile</h4>
+            <p>Write down who you are selling to and why they need your product.</p>
+            <ul><li>Customer</li><li>Problem</li><li>Ability to pay</li><li>Where to find them</li></ul>
+            <div class="result"><strong>End result</strong>I sell [product] to [customer] because they have [problem].</div>
+          </div>
+        </div>
+        <div class="task"><strong>Your task</strong><p>Complete your Customer Profile before moving to Section 2.</p><div class="actions"><a class="btn dark" href="#" data-link="customer-profile">OPEN CUSTOMER PROFILE →</a><button class="btn lime" data-done="1">MARK SECTION COMPLETE</button></div></div>
+      </div>
+    </article>
+
+    <article class="module" data-module="2">
+      <div class="moduleTop"><div class="num">02</div><div><h3>Make Your Offer</h3><p>Give people a clear reason to buy.</p></div><span class="badge">Section 2</span><span class="chev">⌄</span></div>
+      <div class="moduleBody"><div class="bodyGrid">
+        <div class="lessons">
+          <div class="lesson"><div class="lessonIcon">01</div><div><h4>What Are You Selling?</h4><p>Make your product easy to understand.</p></div><a href="#" data-link="l4">VIDEO →</a></div>
+          <div class="lesson"><div class="lessonIcon">02</div><div><h4>How To Make Your Offer Clear</h4><p>Show the problem, result and value in simple words.</p></div><a href="#" data-link="l5">VIDEO →</a></div>
+          <div class="lesson"><div class="lessonIcon">03</div><div><h4>How To Decide Your Price</h4><p>Choose a price you can confidently ask for.</p></div><a href="#" data-link="l6">VIDEO →</a></div>
+        </div>
+        <div class="output"><div class="eyebrow">You will create</div><h4>One Clear Offer</h4><p>Your offer, main benefit, price and reason to buy.</p><div class="result"><strong>End result</strong>A simple offer you can send to a customer without a long explanation.</div></div>
+      </div><div class="task"><strong>Your task</strong><p>Complete your Offer Builder and choose your price.</p><div class="actions"><a class="btn dark" href="#" data-link="offer">OPEN OFFER BUILDER →</a><button class="btn lime" data-done="2">MARK SECTION COMPLETE</button></div></div></div>
+    </article>
+
+    <article class="module" data-module="3">
+      <div class="moduleTop"><div class="num">03</div><div><h3>Find Your First 100 Customers</h3><p>Find 100 people who may need your product.</p></div><span class="badge">Section 3</span><span class="chev">⌄</span></div>
+      <div class="moduleBody"><div class="bodyGrid">
+        <div class="lessons">
+          <div class="lesson"><div class="lessonIcon">01</div><div><h4>Where Are Your Customers?</h4><p>Instagram, LinkedIn, WhatsApp, Google, communities and more.</p></div><a href="#" data-link="l7">VIDEO →</a></div>
+          <div class="lesson"><div class="lessonIcon">02</div><div><h4>How To Find Them</h4><p>See how to search and build a real prospect list.</p></div><a href="#" data-link="l8">VIDEO →</a></div>
+          <div class="lesson"><div class="lessonIcon">03</div><div><h4>Choose Your Best Customer Channel</h4><p>Pick the best place to start for your business.</p></div><a href="#" data-link="l9">VIDEO →</a></div>
+        </div>
+        <div class="output"><div class="eyebrow">You will create</div><h4>Your First 100 Customer List</h4><p>Track each person from first contact to sale.</p><ul><li>Name / company</li><li>Contact</li><li>Source</li><li>Status</li></ul><div class="result"><strong>End result</strong>100 real people or businesses you can contact.</div></div>
+      </div><div class="task"><strong>Your task</strong><p>Build your first 100-person list.</p><div class="actions"><a class="btn dark" href="#" data-link="tracker">OPEN CUSTOMER TRACKER →</a><button class="btn lime" data-done="3">MARK SECTION COMPLETE</button></div></div></div>
+    </article>
+
+    <article class="module" data-module="4">
+      <div class="moduleTop"><div class="num">04</div><div><h3>Start Talking To Customers</h3><p>Know what to say and start real conversations.</p></div><span class="badge">Section 4</span><span class="chev">⌄</span></div>
+      <div class="moduleBody"><div class="bodyGrid">
+        <div class="lessons">
+          <div class="lesson"><div class="lessonIcon">01</div><div><h4>What To Say In Your First Message</h4><p>Start a useful conversation without jumping straight into a pitch.</p></div><a href="#" data-link="l10">VIDEO →</a></div>
+          <div class="lesson"><div class="lessonIcon">02</div><div><h4>Instagram, WhatsApp & LinkedIn Messages</h4><p>Use simple scripts for each channel.</p></div><a href="#" data-link="l11">VIDEO →</a></div>
+          <div class="lesson"><div class="lessonIcon">03</div><div><h4>How To Follow Up</h4><p>Know what to say when someone does not reply.</p></div><a href="#" data-link="l12">VIDEO →</a></div>
+        </div>
+        <div class="output"><div class="eyebrow">You will get</div><h4>Message Scripts</h4><p>Ready-to-use scripts for Instagram, WhatsApp, LinkedIn, cold email, referrals and follow-ups.</p><div class="result"><strong>First task</strong>Send 10 messages. Then 25 → 50 → 100.</div></div>
+      </div><div class="task"><strong>Your task</strong><p>Send your first 10 messages using the scripts.</p><div class="actions"><a class="btn dark" href="#" data-link="scripts">OPEN MESSAGE SCRIPTS →</a><button class="btn lime" data-done="4">MARK SECTION COMPLETE</button></div></div></div>
+    </article>
+
+    <article class="module" data-module="5">
+      <div class="moduleTop"><div class="num">05</div><div><h3>Turn Interest Into Sales</h3><p>Turn a conversation into a paying customer.</p></div><span class="badge">Section 5</span><span class="chev">⌄</span></div>
+      <div class="moduleBody"><div class="bodyGrid">
+        <div class="lessons">
+          <div class="lesson"><div class="lessonIcon">01</div><div><h4>How To Talk To A Potential Customer</h4><p>Ask the right questions before talking about your product.</p></div><a href="#" data-link="l13">VIDEO →</a></div>
+          <div class="lesson"><div class="lessonIcon">02</div><div><h4>How To Do A Simple Sales Call</h4><p>Use a simple step-by-step sales conversation.</p></div><a href="#" data-link="l14">VIDEO →</a></div>
+          <div class="lesson"><div class="lessonIcon">03</div><div><h4>What To Say When They Have Doubts</h4><p>Handle common questions and objections.</p></div><a href="#" data-link="l15">VIDEO →</a></div>
+          <div class="lesson"><div class="lessonIcon">04</div><div><h4>How To Ask For The Sale</h4><p>Stop ending every conversation with “let me know.”</p></div><a href="#" data-link="l16">VIDEO →</a></div>
+        </div>
+        <div class="output"><div class="eyebrow">You will get</div><h4>Sales Toolkit</h4><p>Sales call framework, objection answers and closing scripts.</p><div class="result"><strong>Goal</strong>Get Customer #1.</div></div>
+      </div><div class="task"><strong>Your task</strong><p>Have your first sales conversation and ask for the sale.</p><div class="actions"><a class="btn dark" href="#" data-link="sales">OPEN SALES TOOLKIT →</a><button class="btn lime" data-done="5">MARK SECTION COMPLETE</button></div></div></div>
+    </article>
+
+    <article class="module" data-module="6">
+      <div class="moduleTop"><div class="num">06</div><div><h3>Get Your First 10 Customers</h3><p>Learn from every customer and find what works.</p></div><span class="badge">Section 6</span><span class="chev">⌄</span></div>
+      <div class="moduleBody"><div class="bodyGrid">
+        <div class="lessons">
+          <div class="lesson"><div class="lessonIcon">01</div><div><h4>How To Get Customer #1</h4><p>Focus on one sale and learn from it.</p></div><a href="#" data-link="l17">VIDEO →</a></div>
+          <div class="lesson"><div class="lessonIcon">02</div><div><h4>How To Get Your Next 9</h4><p>Repeat the process and improve it.</p></div><a href="#" data-link="l18">VIDEO →</a></div>
+          <div class="lesson"><div class="lessonIcon">03</div><div><h4>Learn From Every Customer</h4><p>Find out why they bought and what almost stopped them.</p></div><a href="#" data-link="l19">VIDEO →</a></div>
+          <div class="lesson"><div class="lessonIcon">04</div><div><h4>Find What Is Working</h4><p>Compare channels and choose where to spend more time.</p></div><a href="#" data-link="l20">VIDEO →</a></div>
+        </div>
+        <div class="output"><div class="eyebrow">You will create</div><h4>Customer Learning Sheet</h4><p>Track who buys, why they buy and where they came from.</p><ul><li>Customer Tracker</li><li>Feedback Sheet</li><li>Channel Scorecard</li></ul><div class="result"><strong>End result</strong>10 customers + a clearer idea of what is working.</div></div>
+      </div><div class="task"><strong>Your task</strong><p>Get to 10 customers and record what you learn.</p><div class="actions"><a class="btn dark" href="#" data-link="feedback">OPEN CUSTOMER FEEDBACK →</a><button class="btn lime" data-done="6">MARK SECTION COMPLETE</button></div></div></div>
+    </article>
+
+    <article class="module" data-module="7">
+      <div class="moduleTop"><div class="num">07</div><div><h3>Go From 10 → 100</h3><p>Build a simple system to keep getting customers.</p></div><span class="badge">Section 7</span><span class="chev">⌄</span></div>
+      <div class="moduleBody"><div class="bodyGrid">
+        <div class="lessons">
+          <div class="lesson"><div class="lessonIcon">01</div><div><h4>How To Go From 10 → 100 Customers</h4><p>Do more of what works.</p></div><a href="#" data-link="l21">VIDEO →</a></div>
+          <div class="lesson"><div class="lessonIcon">02</div><div><h4>Build Your Weekly Customer Plan</h4><p>Decide how many people to contact, talk to and sell every week.</p></div><a href="#" data-link="l22">VIDEO →</a></div>
+          <div class="lesson"><div class="lessonIcon">03</div><div><h4>Your Next 30 Days</h4><p>Follow a simple plan instead of guessing what to do next.</p></div><a href="#" data-link="l23">VIDEO →</a></div>
+        </div>
+        <div class="output"><div class="eyebrow">You will create</div><h4>Your Customer System</h4><p>A 30-day plan with a weekly target for finding, talking to and selling customers.</p><div class="result"><strong>Final output</strong>You know who to contact, where to find them, what to say, how to sell and what to do every week.</div></div>
+      </div><div class="task"><strong>Your task</strong><p>Choose your best channel and create your 30-day customer plan.</p><div class="actions"><a class="btn dark" href="#" data-link="roadmap">OPEN 30-DAY ROADMAP →</a><button class="btn lime" data-done="7">MARK SECTION COMPLETE</button></div></div></div>
+    </article>
+
+  </div>
+</section>
+
+<section id="resources">
+  <div class="sectionHead">
+    <div class="eyebrow">What you get</div>
+    <h2>Everything you need to do the work.</h2>
+    <p>No need to search for tools somewhere else. Your main templates and scripts stay here.</p>
+  </div>
+  <div class="resources">
+    <div class="resource"><div class="icon">01</div><h4>Customer Profile</h4><p>Know exactly who you are selling to.</p><a href="#" data-link="customer-profile">OPEN →</a></div>
+    <div class="resource"><div class="icon">02</div><h4>Offer Builder</h4><p>Make your offer clear and easy to understand.</p><a href="#" data-link="offer">OPEN →</a></div>
+    <div class="resource"><div class="icon">03</div><h4>Customer Tracker</h4><p>Build and manage your first 100-person list.</p><a href="#" data-link="tracker">OPEN →</a></div>
+    <div class="resource"><div class="icon">04</div><h4>Message Scripts</h4><p>Instagram, WhatsApp, LinkedIn, email and follow-ups.</p><a href="#" data-link="scripts">OPEN →</a></div>
+    <div class="resource"><div class="icon">05</div><h4>Sales Toolkit</h4><p>Sales calls, objections and closing.</p><a href="#" data-link="sales">OPEN →</a></div>
+    <div class="resource"><div class="icon">06</div><h4>Landing Page Framework</h4><p>Make your page clearer and easier to buy from.</p><a href="#" data-link="landing">OPEN →</a></div>
+    <div class="resource"><div class="icon">07</div><h4>Customer Feedback Sheet</h4><p>Learn why people buy and why others don't.</p><a href="#" data-link="feedback">OPEN →</a></div>
+    <div class="resource"><div class="icon">08</div><h4>Channel Scorecard</h4><p>Find which channel is working best.</p><a href="#" data-link="scorecard">OPEN →</a></div>
+    <div class="resource"><div class="icon">09</div><h4>30-Day Customer Roadmap</h4><p>Know what to do every week for the next 30 days.</p><a href="#" data-link="roadmap">OPEN →</a></div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="eyebrow" style="justify-content:center;color:#aeb6b9">The goal</div>
+  <h2>You built the startup.<br><span>Now make it a business.</span></h2>
+  <p>Find people. Talk to them. Get them to pay. Repeat.</p>
+  <div class="actions" style="justify-content:center"><a class="btn lime" href="#program">START SECTION 1 →</a></div>
+</section>
+
+</div>
+</main>
+
+<footer class="footer"><div class="wrap footerIn">
+  <div><img src="assets/launch-house-logo.png" alt="Launch House"><p>Launch House is a Startup Accelerator and founder ecosystem helping Indian founders turn ideas into real companies.</p></div>
+  <div style="font-size:10px;color:#6f777b">© Launch House</div>
+</div></footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const LINKS={
+  "l1":"REPLACE_VIDEO_1_URL","l2":"REPLACE_VIDEO_2_URL","l3":"REPLACE_VIDEO_3_URL",
+  "l4":"REPLACE_VIDEO_4_URL","l5":"REPLACE_VIDEO_5_URL","l6":"REPLACE_VIDEO_6_URL",
+  "l7":"REPLACE_VIDEO_7_URL","l8":"REPLACE_VIDEO_8_URL","l9":"REPLACE_VIDEO_9_URL",
+  "l10":"REPLACE_VIDEO_10_URL","l11":"REPLACE_VIDEO_11_URL","l12":"REPLACE_VIDEO_12_URL",
+  "l13":"REPLACE_VIDEO_13_URL","l14":"REPLACE_VIDEO_14_URL","l15":"REPLACE_VIDEO_15_URL","l16":"REPLACE_VIDEO_16_URL",
+  "l17":"REPLACE_VIDEO_17_URL","l18":"REPLACE_VIDEO_18_URL","l19":"REPLACE_VIDEO_19_URL","l20":"REPLACE_VIDEO_20_URL",
+  "l21":"REPLACE_VIDEO_21_URL","l22":"REPLACE_VIDEO_22_URL","l23":"REPLACE_VIDEO_23_URL",
+  "customer-profile":"REPLACE_CUSTOMER_PROFILE_URL",
+  "offer":"REPLACE_OFFER_BUILDER_URL",
+  "tracker":"REPLACE_CUSTOMER_TRACKER_URL",
+  "scripts":"REPLACE_MESSAGE_SCRIPTS_URL",
+  "sales":"REPLACE_SALES_TOOLKIT_URL",
+  "landing":"REPLACE_LANDING_PAGE_FRAMEWORK_URL",
+  "feedback":"REPLACE_CUSTOMER_FEEDBACK_URL",
+  "scorecard":"REPLACE_CHANNEL_SCORECARD_URL",
+  "roadmap":"REPLACE_30_DAY_ROADMAP_URL"
+};
+document.querySelectorAll("[data-link]").forEach(a=>{
+  const key=a.dataset.link;
+  a.href=LINKS[key]||"#";
+  if((LINKS[key]||"").startsWith("REPLACE_")) a.addEventListener("click",e=>{e.preventDefault();toast("Connect this resource URL in the code.");});
+});
+
+let state=JSON.parse(localStorage.getItem("lh_course_progress")||"null")||{done:[]};
+
+function save(){localStorage.setItem("lh_course_progress",JSON.stringify(state))}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1600)}
+function update(){
+  const n=state.done.length,p=Math.round(n/7*100);
+  document.getElementById("progressText").textContent=`${n} of 7 sections completed`;
+  document.getElementById("progressPct").textContent=p+"%";
+  document.getElementById("progressBar").style.width=p+"%";
+  document.getElementById("navProgress").textContent=`${n} / 7 sections`;
+  document.querySelectorAll("[data-done]").forEach(b=>{
+    const i=+b.dataset.done;
+    const done=state.done.includes(i);
+    b.textContent=done?"✓ SECTION COMPLETE":"MARK SECTION COMPLETE";
+    b.classList.toggle("dark",done);b.classList.toggle("lime",!done);
+  });
+}
+document.querySelectorAll(".moduleTop").forEach(top=>top.addEventListener("click",()=>{
+  const mod=top.closest(".module");
+  document.querySelectorAll(".module").forEach(m=>{if(m!==mod)m.classList.remove("active")});
+  mod.classList.toggle("active");
+}));
+document.querySelectorAll("[data-done]").forEach(b=>b.addEventListener("click",e=>{
+  e.stopPropagation();
+  const n=+b.dataset.done;
+  if(state.done.includes(n)){state.done=state.done.filter(x=>x!==n);toast("Section reopened")}
+  else{state.done.push(n);toast("Section completed ✓")}
+  save();update();
+}));
+update();
+</script>
+</body>
+</html>
